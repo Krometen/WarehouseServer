@@ -17,15 +17,15 @@ public class ProductEntity {
 
     private final long orderNumber;
 
-    private boolean deleted;
+    private final boolean isDeleted;
 
-    public ProductEntity(long productNumber, String productName, long price, long weight, long orderNumber, boolean deleted) {
+    public ProductEntity(long productNumber, String productName, long price, long weight, long orderNumber, boolean isDeleted) {
         this.productNumber = productNumber;
         this.productName = productName;
         this.price = price;
         this.weight = weight;
         this.orderNumber = orderNumber;
-        this.deleted = deleted;
+        this.isDeleted = isDeleted;
     }
 
     public ProductEntity(){
@@ -34,7 +34,7 @@ public class ProductEntity {
         this.price = -1;
         this.weight = -1;
         this.orderNumber = -1;
-        this.deleted = true;
+        this.isDeleted = true;
     }
 
     public String getProductName() {
@@ -58,6 +58,6 @@ public class ProductEntity {
     }
 
     public boolean isDeleted() {
-        return deleted;
+        return isDeleted;
     }
 }

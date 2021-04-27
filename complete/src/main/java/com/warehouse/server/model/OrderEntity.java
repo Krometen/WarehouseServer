@@ -13,17 +13,17 @@ public class OrderEntity {
 
     private final String address;
 
-    private boolean deleted;
+    private final boolean isDeleted;
 
-    public OrderEntity(String date, String address, long orderNumber, boolean deleted){
+    public OrderEntity(String date, String address, long orderNumber, boolean isDeleted){
         this.date = date;
         this.address = address;
         this.orderNumber = orderNumber;
-        this.deleted = deleted;
+        this.isDeleted = isDeleted;
     }
 
     public OrderEntity(){
-        this.deleted = true;
+        this.isDeleted = true;
         this.orderNumber = -1;
         this.date = "undefined";
         this.address = "undefined";
@@ -42,10 +42,10 @@ public class OrderEntity {
     }
 
     public boolean isDeleted() {
-        return deleted;
+        return isDeleted;
     }
 
-    public void delete(){
-        this.deleted = true;
-    }
+//    public void delete(){
+//        this.isDeleted = true;
+//    }
 }

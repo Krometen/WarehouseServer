@@ -4,6 +4,7 @@ import com.warehouse.server.controller.get.GetOrders;
 import com.warehouse.server.model.ProductEntity;
 import com.warehouse.server.repos.ProductsRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,6 +27,9 @@ public class DeleteProduct {
 
     private final static Logger logger = Logger.getLogger(GetOrders.class.getName());
 
+    @Autowired
+    private Environment env;
+
     //http://localhost:8081/deleteProduct?number=11
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/deleteProduct")
@@ -36,12 +40,12 @@ public class DeleteProduct {
             String url = "jdbc:postgresql://localhost/warehouse";
             Properties props = new Properties();
             props.setProperty("user","postgres");
-            props.setProperty("password","1231");
+            props.setProperty("password", env.getProperty("spring.datasource.password"));
             props.setProperty("ssl","false");
             conn = DriverManager.getConnection(url, props);
 
             statement = conn.createStatement();
-            String result = String.format("UPDATE product_data SET deleted = true WHERE product_number = %s ;", number);
+            String result = String.format("UPDATE product_entity SET is_deleted = true WHERE product_number = %s ;", number);
             statement.executeUpdate(result);
         } catch(Exception se){
             //Handle errors for JDBC
