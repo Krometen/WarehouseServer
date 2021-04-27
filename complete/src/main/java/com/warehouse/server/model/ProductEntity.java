@@ -11,15 +11,15 @@ public class ProductEntity {
 
     private String productName;
 
-    private long price;
+    private double price;
 
-    private long weight;
+    private double weight;
 
     private long orderNumber;
 
     private boolean isDeleted;
 
-    public ProductEntity(long productNumber, String productName, long price, long weight, long orderNumber, boolean isDeleted) {
+    public ProductEntity(long productNumber, String productName, double price, double weight, long orderNumber, boolean isDeleted) {
         this.productNumber = productNumber;
         this.productName = productName;
         this.price = price;
@@ -35,11 +35,11 @@ public class ProductEntity {
         return productName;
     }
 
-    public long getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public long getWeight() {
+    public double getWeight() {
         return weight;
     }
 

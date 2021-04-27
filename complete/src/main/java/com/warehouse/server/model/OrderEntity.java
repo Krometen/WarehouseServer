@@ -1,6 +1,10 @@
 package com.warehouse.server.model;
 
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
+import java.sql.Date;
+import java.time.LocalDate;
 
 
 //JPA Заказов
@@ -9,13 +13,13 @@ public class OrderEntity {
     @Id
     private long orderNumber;
 
-    private String date;
+    private LocalDate date;
 
     private String address;
 
     private boolean isDeleted;
 
-    public OrderEntity(String date, String address, long orderNumber, boolean isDeleted){
+    public OrderEntity(LocalDate date, String address, long orderNumber, boolean isDeleted){
         this.date = date;
         this.address = address;
         this.orderNumber = orderNumber;
@@ -29,7 +33,7 @@ public class OrderEntity {
         return orderNumber;
     }
 
-    public String getDate() {
+    public LocalDate getDate() {
         return date;
     }
 

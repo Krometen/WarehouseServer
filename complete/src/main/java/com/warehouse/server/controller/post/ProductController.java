@@ -24,9 +24,9 @@ public class ProductController {
     //http://localhost:8081/postNewProduct?productName=phone&price=20000&weight=200&orderNumber=1
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/postNewProduct")
-    public ProductEntity newProduct(@RequestParam(required = false, defaultValue = "undefined") String productName,
-                                    @RequestParam(required = false) long price,
-                                    @RequestParam(required = false) long weight,
+    public ProductEntity newProduct(@RequestParam(required = false) String productName,
+                                    @RequestParam(required = false) double price,
+                                    @RequestParam(required = false) double weight,
                                     @RequestParam(required = false) long orderNumber){
         List<ProductEntity> allProducts = products.findAllByOrderByProductNumberDesc();
         long counter = allProducts.size()+1;
