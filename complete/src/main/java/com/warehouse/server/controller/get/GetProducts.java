@@ -1,7 +1,7 @@
-package com.example.restservicecors.Controller.GET;
+package com.warehouse.server.controller.get;
 
-import com.example.restservicecors.Model.ProductData;
-import com.example.restservicecors.Repos.ProductsRepo;
+import com.warehouse.server.model.ProductData;
+import com.warehouse.server.repos.ProductsRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;

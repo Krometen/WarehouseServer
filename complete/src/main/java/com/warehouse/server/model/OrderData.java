@@ -1,4 +1,4 @@
-package com.example.restservicecors.Model;
+package com.warehouse.server.model;
 
 import javax.persistence.*;
 

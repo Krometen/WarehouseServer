@@ -1,8 +1,8 @@
-package com.example.restservicecors.Controller.POST;
+package com.warehouse.server.controller.post;
 
-import com.example.restservicecors.Controller.GET.GetOrders;
-import com.example.restservicecors.Model.OrderData;
-import com.example.restservicecors.Repos.OrdersRepo;
+import com.warehouse.server.controller.get.GetOrders;
+import com.warehouse.server.model.OrderData;
+import com.warehouse.server.repos.OrdersRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;

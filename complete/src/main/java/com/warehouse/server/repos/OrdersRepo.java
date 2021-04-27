@@ -1,6 +1,6 @@
-package com.example.restservicecors.Repos;
+package com.warehouse.server.repos;
 
-import com.example.restservicecors.Model.OrderData;
+import com.warehouse.server.model.OrderData;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
