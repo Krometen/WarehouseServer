@@ -7,13 +7,13 @@ import javax.persistence.*;
 @Entity
 public class OrderEntity {
     @Id
-    private final long orderNumber;
+    private long orderNumber;
 
-    private final String date;
+    private String date;
 
-    private final String address;
+    private String address;
 
-    private final boolean isDeleted;
+    private boolean isDeleted;
 
     public OrderEntity(String date, String address, long orderNumber, boolean isDeleted){
         this.date = date;
@@ -23,10 +23,6 @@ public class OrderEntity {
     }
 
     public OrderEntity(){
-        this.isDeleted = true;
-        this.orderNumber = -1;
-        this.date = "undefined";
-        this.address = "undefined";
     }
 
     public long getOrderNumber() {
@@ -44,8 +40,4 @@ public class OrderEntity {
     public boolean isDeleted() {
         return isDeleted;
     }
-
-//    public void delete(){
-//        this.isDeleted = true;
-//    }
 }

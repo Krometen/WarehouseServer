@@ -7,17 +7,17 @@ import javax.persistence.*;
 @Entity
 public class ProductEntity {
     @Id
-    private final long productNumber;
+    private long productNumber;
 
-    private final String productName;
+    private String productName;
 
-    private final long price;
+    private long price;
 
-    private final long weight;
+    private long weight;
 
-    private final long orderNumber;
+    private long orderNumber;
 
-    private final boolean isDeleted;
+    private boolean isDeleted;
 
     public ProductEntity(long productNumber, String productName, long price, long weight, long orderNumber, boolean isDeleted) {
         this.productNumber = productNumber;
@@ -29,12 +29,6 @@ public class ProductEntity {
     }
 
     public ProductEntity(){
-        this.productNumber = -1;
-        this.productName = "undefined";
-        this.price = -1;
-        this.weight = -1;
-        this.orderNumber = -1;
-        this.isDeleted = true;
     }
 
     public String getProductName() {
