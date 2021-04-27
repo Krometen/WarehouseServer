@@ -1,7 +1,7 @@
 package com.warehouse.server.controller.post;
 
 import com.warehouse.server.controller.get.GetOrders;
-import com.warehouse.server.model.Product;
+import com.warehouse.server.model.ProductEntity;
 import com.warehouse.server.repos.ProductsRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -63,10 +63,10 @@ public class DeleteProduct {
             }//end finally try
         }//end try
 
-        List<Product> allProducts = products.findAllByOrderByProductNumberDesc();
-        logger.info("Deleted product: "+allProducts.get((int) (allProducts.size() - number)).productName+" №: "
-                +allProducts.get((int) (allProducts.size() - number)).productNumber);
-        return "Deleted product: "+allProducts.get((int) (allProducts.size() - number)).productName+" №: "
-                +allProducts.get((int) (allProducts.size() - number)).productNumber;
+        List<ProductEntity> allProducts = products.findAllByOrderByProductNumberDesc();
+        logger.info("Deleted product: "+allProducts.get((int) (allProducts.size() - number)).getProductName()+" №: "
+                +allProducts.get((int) (allProducts.size() - number)).getProductNumber());
+        return "Deleted product: "+allProducts.get((int) (allProducts.size() - number)).getProductName()+" №: "
+                +allProducts.get((int) (allProducts.size() - number)).getProductNumber();
     }
 }

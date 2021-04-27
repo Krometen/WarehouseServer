@@ -1,6 +1,6 @@
 package com.warehouse.server.controller.get;
 
-import com.warehouse.server.model.Product;
+import com.warehouse.server.model.ProductEntity;
 import com.warehouse.server.repos.ProductsRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,9 +22,9 @@ public class GetProducts {
     @CrossOrigin(origins = "http://localhost:3000")
     @RequestMapping(value="/getProducts", method= RequestMethod.GET)
     public @ResponseBody
-    List<Product> getProductsJson(@RequestParam(required = false) long order) {
-        List<Product> arr = products.findAllByOrderByProductNumberDesc();
-        arr.removeIf(s -> !(s.orderNumber == order));
+    List<ProductEntity> getProductsJson(@RequestParam(required = false) long order) {
+        List<ProductEntity> arr = products.findAllByOrderByProductNumberDesc();
+        arr.removeIf(s -> !(s.getOrderNumber() == order));
         logger.info("Get products");
         return arr;
     }

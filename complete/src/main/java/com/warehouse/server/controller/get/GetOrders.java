@@ -1,6 +1,6 @@
 package com.warehouse.server.controller.get;
 
-import com.warehouse.server.model.Order;
+import com.warehouse.server.model.OrderEntity;
 import com.warehouse.server.repos.OrdersRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,8 +23,8 @@ public class GetOrders {
     @CrossOrigin(origins = "http://localhost:3000")
     @RequestMapping(value="/getOrders", method= RequestMethod.GET)
     public @ResponseBody
-    List<Order> getOrdersJson() {
-        List<Order> allOrders = orders.findAllByOrderByOrderNumberDesc();
+    List<OrderEntity> getOrdersJson() {
+        List<OrderEntity> allOrders = orders.findAllByOrderByOrderNumberDesc();
         logger.info("Get orders");
 
         return allOrders;
