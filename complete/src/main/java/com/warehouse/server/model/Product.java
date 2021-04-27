@@ -5,7 +5,7 @@ import javax.persistence.*;
 
 //JPA Товаров
 @Entity
-public class ProductData {
+public class Product {
     @Id
     public final long productNumber;
     
@@ -19,7 +19,7 @@ public class ProductData {
 
     public boolean deleted;
 
-    public ProductData(long productNumber, String productName, long price, long weight, long orderNumber, boolean deleted) {
+    public Product(long productNumber, String productName, long price, long weight, long orderNumber, boolean deleted) {
         this.productNumber = productNumber;
         this.productName = productName;
         this.price = price;
@@ -28,7 +28,7 @@ public class ProductData {
         this.deleted = deleted;
     }
 
-    public ProductData(){
+    public Product(){
         this.productNumber = -1;
         this.productName = "undefined";
         this.price = -1;

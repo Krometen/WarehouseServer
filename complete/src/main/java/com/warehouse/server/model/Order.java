@@ -5,7 +5,7 @@ import javax.persistence.*;
 
 //JPA Заказов
 @Entity
-public class OrderData {
+public class Order {
     @Id
     public final long orderNumber;
 
@@ -15,14 +15,14 @@ public class OrderData {
 
     public boolean deleted;
 
-    public OrderData(String date, String address, long orderNumber, boolean deleted){
+    public Order(String date, String address, long orderNumber, boolean deleted){
         this.date = date;
         this.address = address;
         this.orderNumber = orderNumber;
         this.deleted = deleted;
     }
 
-    public OrderData(){
+    public Order(){
         this.deleted = true;
         this.orderNumber = -1;
         this.date = "undefined";

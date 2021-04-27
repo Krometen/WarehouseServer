@@ -1,7 +1,7 @@
 package com.warehouse.server.controller.post;
 
 import com.warehouse.server.controller.get.GetOrders;
-import com.warehouse.server.model.OrderData;
+import com.warehouse.server.model.Order;
 import com.warehouse.server.repos.OrdersRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -60,7 +60,7 @@ public class DeleteOrder {
             }//end finally try
         }//end try
 
-        List<OrderData> allOrders = orders.findAllByOrderByOrderNumberDesc();
+        List<Order> allOrders = orders.findAllByOrderByOrderNumberDesc();
         logger.info("Deleted order Number: "+allOrders.get((int) (allOrders.size() - number)).orderNumber);
         return "Deleted order Number: "+allOrders.get((int) (allOrders.size() - number)).orderNumber;
     }

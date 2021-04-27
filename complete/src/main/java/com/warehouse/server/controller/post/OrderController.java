@@ -1,7 +1,7 @@
 package com.warehouse.server.controller.post;
 
 import com.warehouse.server.controller.get.GetOrders;
-import com.warehouse.server.model.OrderData;
+import com.warehouse.server.model.Order;
 import com.warehouse.server.repos.OrdersRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -24,11 +24,11 @@ public class OrderController {
     //http://localhost:8081/postNewOrder?date=01.02.21&address=PUSHKIN+STREET
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/postNewOrder")
-    public OrderData newOrder(@RequestParam(required = false, defaultValue = "undefined") String date,
-                              @RequestParam(required = false, defaultValue = "undefined") String address) {
-        List<OrderData> allOrders = orders.findAllByOrderByOrderNumberDesc();
+    public Order newOrder(@RequestParam(required = false, defaultValue = "undefined") String date,
+                          @RequestParam(required = false, defaultValue = "undefined") String address) {
+        List<Order> allOrders = orders.findAllByOrderByOrderNumberDesc();
         long counter = allOrders.size()+1;
-        OrderData order = new OrderData(date, address, counter, false);
+        Order order = new Order(date, address, counter, false);
         try {
             orders.save(order);
         }catch(NullPointerException npe){
