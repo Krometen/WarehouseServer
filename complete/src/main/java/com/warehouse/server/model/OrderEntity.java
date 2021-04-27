@@ -1,9 +1,6 @@
 package com.warehouse.server.model;
 
-import org.hibernate.annotations.Type;
-
 import javax.persistence.*;
-import java.sql.Date;
 import java.time.LocalDate;
 
 

@@ -2,14 +2,13 @@ package com.warehouse.server.controller.post;
 
 import com.warehouse.server.controller.get.GetOrders;
 import com.warehouse.server.model.OrderEntity;
-import com.warehouse.server.repos.OrdersRepo;
+import com.warehouse.server.repos.OrderRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.logging.Logger;
@@ -19,7 +18,7 @@ import java.util.logging.Logger;
 @RestController
 public class OrderController {
     @Autowired
-    private OrdersRepo orders;
+    private OrderRepo orders;
 
     private final static Logger logger = Logger.getLogger(GetOrders.class.getName());
 
@@ -28,7 +27,7 @@ public class OrderController {
     @GetMapping("/postNewOrder")
     public OrderEntity newOrder(@RequestParam(required = false) LocalDate date,
                                 @RequestParam(required = false) String address) {
-        List<OrderEntity> allOrders = orders.findAllByOrderByOrderNumberDesc();
+        List<OrderEntity> allOrders = orders.findAll();
         long counter = allOrders.size()+1;
         OrderEntity order = new OrderEntity(date, address, counter, false);
         try {

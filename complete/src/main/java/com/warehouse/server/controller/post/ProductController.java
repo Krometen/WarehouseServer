@@ -2,7 +2,7 @@ package com.warehouse.server.controller.post;
 
 import com.warehouse.server.controller.get.GetOrders;
 import com.warehouse.server.model.ProductEntity;
-import com.warehouse.server.repos.ProductsRepo;
+import com.warehouse.server.repos.ProductRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,7 +17,7 @@ import java.util.logging.Logger;
 @RestController
 public class ProductController {
     @Autowired
-    private ProductsRepo products;
+    private ProductRepo products;
 
     private final static Logger logger = Logger.getLogger(GetOrders.class.getName());
 
@@ -28,7 +28,7 @@ public class ProductController {
                                     @RequestParam(required = false) double price,
                                     @RequestParam(required = false) double weight,
                                     @RequestParam(required = false) long orderNumber){
-        List<ProductEntity> allProducts = products.findAllByOrderByProductNumberDesc();
+        List<ProductEntity> allProducts = products.findAll();
         long counter = allProducts.size()+1;
         ProductEntity product = new ProductEntity(counter, productName, price, weight, orderNumber, false);
         try {

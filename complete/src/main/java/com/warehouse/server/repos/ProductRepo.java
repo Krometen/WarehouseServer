@@ -7,6 +7,6 @@ import java.util.List;
 
 
 //Hibernate репозиторий товаров
-public interface ProductsRepo extends CrudRepository<ProductEntity, Integer> {
-    List<ProductEntity> findAllByOrderByProductNumberDesc();
+public interface ProductRepo extends CrudRepository<ProductEntity, Long> {
+    List<ProductEntity> findAll();
 }

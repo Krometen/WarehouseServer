@@ -2,7 +2,7 @@ package com.warehouse.server.controller.post;
 
 import com.warehouse.server.controller.get.GetOrders;
 import com.warehouse.server.model.ProductEntity;
-import com.warehouse.server.repos.ProductsRepo;
+import com.warehouse.server.repos.ProductRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -23,7 +23,7 @@ import java.util.logging.Logger;
 @RestController
 public class DeleteProduct {
     @Autowired
-    private ProductsRepo products;
+    private ProductRepo products;
 
     private final static Logger logger = Logger.getLogger(GetOrders.class.getName());
 
@@ -67,7 +67,7 @@ public class DeleteProduct {
             }//end finally try
         }//end try
 
-        List<ProductEntity> allProducts = products.findAllByOrderByProductNumberDesc();
+        List<ProductEntity> allProducts = products.findAll();
         logger.info("Deleted product: "+allProducts.get((int) (allProducts.size() - number)).getProductName()+" №: "
                 +allProducts.get((int) (allProducts.size() - number)).getProductNumber());
         return "Deleted product: "+allProducts.get((int) (allProducts.size() - number)).getProductName()+" №: "

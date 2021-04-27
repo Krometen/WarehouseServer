@@ -7,6 +7,6 @@ import java.util.List;
 
 
 //Hibernate репозиторий заказов
-public interface OrdersRepo extends CrudRepository<OrderEntity, Integer> {
-    List<OrderEntity> findAllByOrderByOrderNumberDesc();
+public interface OrderRepo extends CrudRepository<OrderEntity, Long> {
+    List<OrderEntity> findAll();
 }

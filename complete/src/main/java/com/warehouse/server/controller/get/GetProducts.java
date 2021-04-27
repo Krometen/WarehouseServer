@@ -1,7 +1,7 @@
 package com.warehouse.server.controller.get;
 
 import com.warehouse.server.model.ProductEntity;
-import com.warehouse.server.repos.ProductsRepo;
+import com.warehouse.server.repos.ProductRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +14,7 @@ import java.util.logging.Logger;
 @Controller
 public class GetProducts {
     @Autowired
-    private ProductsRepo products;
+    private ProductRepo products;
 
     private final static Logger logger = Logger.getLogger(GetOrders.class.getName());
 
@@ -23,7 +23,7 @@ public class GetProducts {
     @RequestMapping(value="/getProducts", method= RequestMethod.GET)
     public @ResponseBody
     List<ProductEntity> getProductsJson(@RequestParam(required = false) long order) {
-        List<ProductEntity> arr = products.findAllByOrderByProductNumberDesc();
+        List<ProductEntity> arr = products.findAll();
         arr.removeIf(s -> !(s.getOrderNumber() == order));
         logger.info("Get products");
         return arr;
