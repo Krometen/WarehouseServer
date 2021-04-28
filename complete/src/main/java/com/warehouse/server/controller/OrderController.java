@@ -34,7 +34,7 @@ public class OrderController {
 
     //http://localhost:8081/postNewOrder?date=01.02.21&address=PUSHKIN+STREET
     @CrossOrigin(origins = "http://localhost:3000")
-    @GetMapping("/postNewOrder")
+    @PostMapping("/postNewOrder")
     public OrderEntity newOrder(@RequestParam(required = false) LocalDate date,
                                 @RequestParam(required = false) String address) {
         List<OrderEntity> allOrders = orderService.getAllOrders();
@@ -91,7 +91,7 @@ public class OrderController {
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
-    @RequestMapping(value="/getOrders", method= RequestMethod.GET)
+    @GetMapping(value="/getOrders")
     public @ResponseBody
     List<OrderEntity> getOrdersJson() {
         List<OrderEntity> allOrders = orderService.getAllOrders();

@@ -33,7 +33,7 @@ public class ProductController {
 
     //http://localhost:8081/postNewProduct?productName=phone&price=20000&weight=200&orderNumber=1
     @CrossOrigin(origins = "http://localhost:3000")
-    @GetMapping("/postNewProduct")
+    @PostMapping("/postNewProduct")
     public ProductEntity newProduct(@RequestParam(required = false) String productName,
                                     @RequestParam(required = false) double price,
                                     @RequestParam(required = false) double weight,
@@ -95,7 +95,7 @@ public class ProductController {
 
     //http://localhost:8081/getProducts?order=5
     @CrossOrigin(origins = "http://localhost:3000")
-    @RequestMapping(value="/getProducts", method= RequestMethod.GET)
+    @GetMapping(value="/getProducts")
     public @ResponseBody
     List<ProductEntity> getProductsJson(@RequestParam(required = false) long order) {
         List<ProductEntity> arr = productService.getAllProducts();
