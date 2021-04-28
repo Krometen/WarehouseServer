@@ -1,7 +1,6 @@
 package com.warehouse.server.controller;
 
 import com.warehouse.server.model.OrderEntity;
-import com.warehouse.server.repositories.OrderRepository;
 import com.warehouse.server.servicelayer.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -21,13 +20,17 @@ import java.util.logging.Logger;
 @RestController
 public class OrderController {
 
-    @Autowired
-    private Environment env;
+    private final Environment env;
 
-    @Autowired
-    private OrderService orderService;
+    private final OrderService orderService;
 
     private final static Logger logger = Logger.getLogger(OrderController.class.getName());
+
+    @Autowired
+    public OrderController(Environment env, OrderService orderService) {
+        this.env = env;
+        this.orderService = orderService;
+    }
 
     //http://localhost:8081/postNewOrder?date=01.02.21&address=PUSHKIN+STREET
     @CrossOrigin(origins = "http://localhost:3000")

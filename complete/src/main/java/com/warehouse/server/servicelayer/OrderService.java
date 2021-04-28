@@ -1,6 +1,5 @@
 package com.warehouse.server.servicelayer;
 
-import com.warehouse.server.controller.ProductController;
 import com.warehouse.server.model.OrderEntity;
 import com.warehouse.server.repositories.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,10 +11,14 @@ import java.util.logging.Logger;
 @Service
 public class OrderService {
 
-    @Autowired
-    private OrderRepository orders;
+    private final OrderRepository orders;
 
     private final static Logger logger = Logger.getLogger(OrderService.class.getName());
+
+    @Autowired
+    public OrderService(OrderRepository orders) {
+        this.orders = orders;
+    }
 
     public void saveOrder(OrderEntity order){
         orders.save(order);

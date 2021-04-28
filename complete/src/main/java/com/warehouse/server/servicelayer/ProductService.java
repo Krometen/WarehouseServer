@@ -1,6 +1,5 @@
 package com.warehouse.server.servicelayer;
 
-import com.warehouse.server.controller.ProductController;
 import com.warehouse.server.model.ProductEntity;
 import com.warehouse.server.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,10 +11,14 @@ import java.util.logging.Logger;
 @Service
 public class ProductService {
 
-    @Autowired
-    private ProductRepository products;
+    private final ProductRepository products;
 
     private final static Logger logger = Logger.getLogger(ProductService.class.getName());
+
+    @Autowired
+    public ProductService(ProductRepository products) {
+        this.products = products;
+    }
 
     public void saveProduct(ProductEntity product){
         products.save(product);

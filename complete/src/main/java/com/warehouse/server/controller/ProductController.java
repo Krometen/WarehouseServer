@@ -1,7 +1,6 @@
 package com.warehouse.server.controller;
 
 import com.warehouse.server.model.ProductEntity;
-import com.warehouse.server.repositories.ProductRepository;
 import com.warehouse.server.servicelayer.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -20,13 +19,17 @@ import java.util.logging.Logger;
 @RestController
 public class ProductController {
 
-    @Autowired
-    private Environment env;
+    private final Environment env;
 
-    @Autowired
-    private ProductService productService;
+    private final ProductService productService;
 
     private final static Logger logger = Logger.getLogger(ProductController.class.getName());
+
+    @Autowired
+    public ProductController(Environment env, ProductService productService) {
+        this.env = env;
+        this.productService = productService;
+    }
 
     //http://localhost:8081/postNewProduct?productName=phone&price=20000&weight=200&orderNumber=1
     @CrossOrigin(origins = "http://localhost:3000")
