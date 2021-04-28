@@ -1,7 +1,8 @@
 package com.warehouse.server.controller;
 
 import com.warehouse.server.model.OrderEntity;
-import com.warehouse.server.repos.OrderRepository;
+import com.warehouse.server.repositories.OrderRepository;
+import com.warehouse.server.servicelayer.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +25,7 @@ public class OrderController {
     private Environment env;
 
     @Autowired
-    private OrderRepository orders;
+    private OrderService orderService;
 
     private final static Logger logger = Logger.getLogger(OrderController.class.getName());
 
@@ -33,16 +34,14 @@ public class OrderController {
     @GetMapping("/postNewOrder")
     public OrderEntity newOrder(@RequestParam(required = false) LocalDate date,
                                 @RequestParam(required = false) String address) {
-        List<OrderEntity> allOrders = orders.findAll();
+        List<OrderEntity> allOrders = orderService.getAllOrders();
         long counter = allOrders.size()+1;
         OrderEntity order = new OrderEntity(date, address, counter, false);
         try {
-            orders.save(order);
+            orderService.saveOrder(order);
         }catch(NullPointerException npe){
             logger.warning("No repository: " + npe + "\n " + order);
         }
-        logger.info("Order has been created: №"+counter);
-
         return order;
     }
 
@@ -83,7 +82,7 @@ public class OrderController {
             }//end finally try
         }//end try
 
-        List<OrderEntity> allOrders = orders.findAll();
+        List<OrderEntity> allOrders = orderService.getAllOrders();
         logger.info("Deleted order Number: "+allOrders.get((int) (allOrders.size() - number)).getOrderNumber());
         return "Deleted order Number: "+allOrders.get((int) (allOrders.size() - number)).getOrderNumber();
     }
@@ -92,7 +91,7 @@ public class OrderController {
     @RequestMapping(value="/getOrders", method= RequestMethod.GET)
     public @ResponseBody
     List<OrderEntity> getOrdersJson() {
-        List<OrderEntity> allOrders = orders.findAll();
+        List<OrderEntity> allOrders = orderService.getAllOrders();
         logger.info("Get orders");
 
         return allOrders;

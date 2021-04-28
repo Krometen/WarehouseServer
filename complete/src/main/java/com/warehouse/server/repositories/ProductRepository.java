@@ -1,4 +1,4 @@
-package com.warehouse.server.repos;
+package com.warehouse.server.repositories;
 
 import com.warehouse.server.model.ProductEntity;
 import org.springframework.data.repository.CrudRepository;

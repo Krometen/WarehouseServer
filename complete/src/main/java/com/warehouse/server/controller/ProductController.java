@@ -1,7 +1,8 @@
 package com.warehouse.server.controller;
 
 import com.warehouse.server.model.ProductEntity;
-import com.warehouse.server.repos.ProductRepository;
+import com.warehouse.server.repositories.ProductRepository;
+import com.warehouse.server.servicelayer.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +24,7 @@ public class ProductController {
     private Environment env;
 
     @Autowired
-    private ProductRepository products;
+    private ProductService productService;
 
     private final static Logger logger = Logger.getLogger(ProductController.class.getName());
 
@@ -34,15 +35,14 @@ public class ProductController {
                                     @RequestParam(required = false) double price,
                                     @RequestParam(required = false) double weight,
                                     @RequestParam(required = false) long orderNumber){
-        List<ProductEntity> allProducts = products.findAll();
+        List<ProductEntity> allProducts = productService.getAllProducts();
         long counter = allProducts.size()+1;
         ProductEntity product = new ProductEntity(counter, productName, price, weight, orderNumber, false);
         try {
-            products.save(product);
+            productService.saveProduct(product);
         }catch(NullPointerException npe){
             logger.warning("No repository: " + npe + "\n " + product);
         }
-        logger.info("Created Product ("+productName+") for order number: "+orderNumber);
         return product;
     }
 
@@ -83,7 +83,7 @@ public class ProductController {
             }//end finally try
         }//end try
 
-        List<ProductEntity> allProducts = products.findAll();
+        List<ProductEntity> allProducts = productService.getAllProducts();
         logger.info("Deleted product: "+allProducts.get((int) (allProducts.size() - number)).getProductName()+" №: "
                 +allProducts.get((int) (allProducts.size() - number)).getProductNumber());
         return "Deleted product: "+allProducts.get((int) (allProducts.size() - number)).getProductName()+" №: "
@@ -95,7 +95,7 @@ public class ProductController {
     @RequestMapping(value="/getProducts", method= RequestMethod.GET)
     public @ResponseBody
     List<ProductEntity> getProductsJson(@RequestParam(required = false) long order) {
-        List<ProductEntity> arr = products.findAll();
+        List<ProductEntity> arr = productService.getAllProducts();
         arr.removeIf(s -> !(s.getOrderNumber() == order));
         logger.info("Get products");
         return arr;
