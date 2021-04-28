@@ -1,31 +1,50 @@
-package com.warehouse.server.controller.post;
+package com.warehouse.server.controller;
 
-import com.warehouse.server.controller.get.GetOrders;
 import com.warehouse.server.model.OrderEntity;
 import com.warehouse.server.repos.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Properties;
 import java.util.logging.Logger;
 
 
-//Удаляет заказ по номеру
+//Создает заказ по дате и адресу
 @RestController
-public class DeleteOrder {
-    @Autowired
-    private OrderRepository orders;
-
-    private final static Logger logger = Logger.getLogger(GetOrders.class.getName());
+public class OrderController {
 
     @Autowired
     private Environment env;
+
+    @Autowired
+    private OrderRepository orders;
+
+    private final static Logger logger = Logger.getLogger(OrderController.class.getName());
+
+    //http://localhost:8081/postNewOrder?date=01.02.21&address=PUSHKIN+STREET
+    @CrossOrigin(origins = "http://localhost:3000")
+    @GetMapping("/postNewOrder")
+    public OrderEntity newOrder(@RequestParam(required = false) LocalDate date,
+                                @RequestParam(required = false) String address) {
+        List<OrderEntity> allOrders = orders.findAll();
+        long counter = allOrders.size()+1;
+        OrderEntity order = new OrderEntity(date, address, counter, false);
+        try {
+            orders.save(order);
+        }catch(NullPointerException npe){
+            logger.warning("No repository: " + npe + "\n " + order);
+        }
+        logger.info("Order has been created: №"+counter);
+
+        return order;
+    }
 
     //http://localhost:8081/deleteOrder?number=1
     @CrossOrigin(origins = "http://localhost:3000")
@@ -67,5 +86,15 @@ public class DeleteOrder {
         List<OrderEntity> allOrders = orders.findAll();
         logger.info("Deleted order Number: "+allOrders.get((int) (allOrders.size() - number)).getOrderNumber());
         return "Deleted order Number: "+allOrders.get((int) (allOrders.size() - number)).getOrderNumber();
+    }
+
+    @CrossOrigin(origins = "http://localhost:3000")
+    @RequestMapping(value="/getOrders", method= RequestMethod.GET)
+    public @ResponseBody
+    List<OrderEntity> getOrdersJson() {
+        List<OrderEntity> allOrders = orders.findAll();
+        logger.info("Get orders");
+
+        return allOrders;
     }
 }
