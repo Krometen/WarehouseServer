@@ -11,7 +11,9 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Locale;
 import java.util.Properties;
 import java.util.logging.Logger;
 
@@ -34,12 +36,15 @@ public class OrderController {
 
     //http://localhost:8081/postNewOrder?date=01.02.21&address=PUSHKIN+STREET
     @CrossOrigin(origins = "http://localhost:3000")
-    @PostMapping("/postNewOrder")
-    public OrderEntity newOrder(@RequestParam(required = false) LocalDate date,
+    @RequestMapping("/postNewOrder")
+    public OrderEntity newOrder(@RequestParam(required = false) String date,
                                 @RequestParam(required = false) String address) {
         List<OrderEntity> allOrders = orderService.getAllOrders();
         long counter = allOrders.size()+1;
-        OrderEntity order = new OrderEntity(date, address, counter, false);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        formatter = formatter.withLocale( Locale.US );  // Locale specifies human language for translating, and cultural norms for lowercase/uppercase and abbreviations and such. Example: Locale.US or Locale.CANADA_FRENCH
+        LocalDate localDate = LocalDate.parse(date, formatter);
+        OrderEntity order = new OrderEntity(localDate, address, counter, false);
         try {
             orderService.saveOrder(order);
         }catch(NullPointerException npe){
@@ -50,7 +55,7 @@ public class OrderController {
 
     //http://localhost:8081/deleteOrder?number=1
     @CrossOrigin(origins = "http://localhost:3000")
-    @GetMapping("/deleteOrder")
+    @RequestMapping("/deleteOrder")
     public String deleteOrder(@RequestParam(required = false, defaultValue = "undefined") long number) {
         Connection conn = null;
         Statement statement = null;

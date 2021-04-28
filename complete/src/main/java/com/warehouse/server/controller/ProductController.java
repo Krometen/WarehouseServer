@@ -33,7 +33,7 @@ public class ProductController {
 
     //http://localhost:8081/postNewProduct?productName=phone&price=20000&weight=200&orderNumber=1
     @CrossOrigin(origins = "http://localhost:3000")
-    @PostMapping("/postNewProduct")
+    @RequestMapping("/postNewProduct")
     public ProductEntity newProduct(@RequestParam(required = false) String productName,
                                     @RequestParam(required = false) double price,
                                     @RequestParam(required = false) double weight,
@@ -51,7 +51,7 @@ public class ProductController {
 
     //http://localhost:8081/deleteProduct?number=11
     @CrossOrigin(origins = "http://localhost:3000")
-    @GetMapping("/deleteProduct")
+    @RequestMapping("/deleteProduct")
     public String deleteProduct(@RequestParam(required = false) long number){
         Connection conn = null;
         Statement statement = null;
