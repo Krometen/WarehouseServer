@@ -1,7 +1,7 @@
 package com.warehouse.server.controller.get;
 
 import com.warehouse.server.model.ProductEntity;
-import com.warehouse.server.repos.ProductRepo;
+import com.warehouse.server.repos.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +14,7 @@ import java.util.logging.Logger;
 @Controller
 public class GetProducts {
     @Autowired
-    private ProductRepo products;
+    private ProductRepository products;
 
     private final static Logger logger = Logger.getLogger(GetOrders.class.getName());
 

@@ -9,6 +9,6 @@ import java.util.List;
 
 //Hibernate репозиторий товаров
 @Repository
-public interface ProductRepo extends CrudRepository<ProductEntity, Long> {
+public interface ProductRepository extends CrudRepository<ProductEntity, Long> {
     List<ProductEntity> findAll();
 }

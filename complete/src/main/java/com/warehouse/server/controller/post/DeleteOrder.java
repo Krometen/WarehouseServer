@@ -2,7 +2,7 @@ package com.warehouse.server.controller.post;
 
 import com.warehouse.server.controller.get.GetOrders;
 import com.warehouse.server.model.OrderEntity;
-import com.warehouse.server.repos.OrderRepo;
+import com.warehouse.server.repos.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -20,7 +20,7 @@ import java.util.logging.Logger;
 @RestController
 public class DeleteOrder {
     @Autowired
-    private OrderRepo orders;
+    private OrderRepository orders;
 
     private final static Logger logger = Logger.getLogger(GetOrders.class.getName());
 
