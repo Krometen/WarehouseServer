@@ -5,8 +5,10 @@ import java.util.List;
 
 public interface ProductService {
 
-    void saveProduct(ProductEntity product);
+    void saveProduct(String productName, double price, double weight, long orderNumber);
 
-    List<ProductEntity> getAllProducts();
+    void deleteProduct(long number);
+
+    List<ProductEntity> getProducts(long orderNumber);
 
 }

@@ -1,32 +1,88 @@
 package com.warehouse.server.service;
 
+import com.warehouse.server.controller.ProductController;
 import com.warehouse.server.model.ProductEntity;
 import com.warehouse.server.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
+import java.util.Properties;
 import java.util.logging.Logger;
 
 @Service
 public class ProductServiceImpl implements ProductService{
 
+    private final static Logger logger = Logger.getLogger(ProductController.class.getName());
+
+    private final Environment env;
+
     private final ProductRepository products;
 
-    private final static Logger logger = Logger.getLogger(ProductServiceImpl.class.getName());
-
     @Autowired
-    public ProductServiceImpl(ProductRepository products) {
+    public ProductServiceImpl(Environment env, ProductRepository products) {
+        this.env = env;
         this.products = products;
     }
 
-    public void saveProduct(ProductEntity product){
-        products.save(product);
-        logger.info("Created Product ("+product.getProductName()+") for order number: "+product.getOrderNumber());
+    @Override
+    public void saveProduct(String productName, double price, double weight, long orderNumber){
+        List<ProductEntity> allProducts = products.findAll();
+        long counter = allProducts.size()+1;
+        ProductEntity product = new ProductEntity(counter, productName, price, weight, orderNumber, false);
+        try {
+            products.save(product);
+        }catch(NullPointerException npe){
+            logger.warning("No repository: " + npe + "\n " + product);
+        }
     }
 
-    public List<ProductEntity> getAllProducts(){
-        return products.findAll();
+    @Override
+    public void deleteProduct(long number) {
+        Connection conn = null;
+        Statement statement = null;
+        try{
+            String url = "jdbc:postgresql://localhost/warehouse";
+            Properties props = new Properties();
+            props.setProperty("user","postgres");
+            props.setProperty("password", env.getProperty("spring.datasource.password"));
+            props.setProperty("ssl","false");
+            conn = DriverManager.getConnection(url, props);
+            statement = conn.createStatement();
+            String result = String.format("UPDATE product_entity SET is_deleted = true WHERE product_number = %s ;", number);
+            statement.executeUpdate(result);
+        } catch(Exception se){
+            //Handle errors for JDBC
+            se.printStackTrace();
+        }//Handle errors for Class.forName
+        finally{
+            //finally block used to close resources
+            try{
+                if(statement!=null) {
+                    conn.close();
+                }
+            }catch(SQLException ignored){
+            }// do nothing
+            try{
+                if(conn!=null)
+                    conn.close();
+            }catch(SQLException se){
+                se.printStackTrace();
+                logger.warning("SQLException: "+se);
+            }//end finally try
+        }//end try
+    }
+
+    @Override
+    public List<ProductEntity> getProducts(long orderNumber){
+        List<ProductEntity> arr = products.findAll();
+        arr.removeIf(s -> !(s.getOrderNumber() == orderNumber));
+        return arr;
     }
 
 }
