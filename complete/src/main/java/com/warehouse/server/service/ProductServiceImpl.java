@@ -1,4 +1,4 @@
-package com.warehouse.server.servicelayer;
+package com.warehouse.server.service;
 
 import com.warehouse.server.model.ProductEntity;
 import com.warehouse.server.repositories.ProductRepository;
@@ -9,14 +9,14 @@ import java.util.List;
 import java.util.logging.Logger;
 
 @Service
-public class ProductService {
+public class ProductServiceImpl implements ProductService{
 
     private final ProductRepository products;
 
-    private final static Logger logger = Logger.getLogger(ProductService.class.getName());
+    private final static Logger logger = Logger.getLogger(ProductServiceImpl.class.getName());
 
     @Autowired
-    public ProductService(ProductRepository products) {
+    public ProductServiceImpl(ProductRepository products) {
         this.products = products;
     }
 

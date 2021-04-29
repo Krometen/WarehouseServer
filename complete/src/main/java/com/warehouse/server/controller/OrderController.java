@@ -1,7 +1,7 @@
 package com.warehouse.server.controller;
 
 import com.warehouse.server.model.OrderEntity;
-import com.warehouse.server.servicelayer.OrderService;
+import com.warehouse.server.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.*;
@@ -24,29 +24,29 @@ public class OrderController {
 
     private final Environment env;
 
-    private final OrderService orderService;
+    private final OrderService OrderService;
 
     private final static Logger logger = Logger.getLogger(OrderController.class.getName());
 
     @Autowired
-    public OrderController(Environment env, OrderService orderService) {
+    public OrderController(Environment env, OrderService OrderService) {
         this.env = env;
-        this.orderService = orderService;
+        this.OrderService = OrderService;
     }
 
     //http://localhost:8081/postNewOrder?date=01.02.21&address=PUSHKIN+STREET
     @CrossOrigin(origins = "http://localhost:3000")
-    @RequestMapping("/postNewOrder")
+    @PostMapping("/postNewOrder")
     public OrderEntity newOrder(@RequestParam(required = false) String date,
                                 @RequestParam(required = false) String address) {
-        List<OrderEntity> allOrders = orderService.getAllOrders();
+        List<OrderEntity> allOrders = OrderService.getAllOrders();
         long counter = allOrders.size()+1;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         formatter = formatter.withLocale( Locale.US );  // Locale specifies human language for translating, and cultural norms for lowercase/uppercase and abbreviations and such. Example: Locale.US or Locale.CANADA_FRENCH
         LocalDate localDate = LocalDate.parse(date, formatter);
         OrderEntity order = new OrderEntity(localDate, address, counter, false);
         try {
-            orderService.saveOrder(order);
+            OrderService.saveOrder(order);
         }catch(NullPointerException npe){
             logger.warning("No repository: " + npe + "\n " + order);
         }
@@ -90,7 +90,7 @@ public class OrderController {
             }//end finally try
         }//end try
 
-        List<OrderEntity> allOrders = orderService.getAllOrders();
+        List<OrderEntity> allOrders = OrderService.getAllOrders();
         logger.info("Deleted order Number: "+allOrders.get((int) (allOrders.size() - number)).getOrderNumber());
         return "Deleted order Number: "+allOrders.get((int) (allOrders.size() - number)).getOrderNumber();
     }
@@ -99,7 +99,7 @@ public class OrderController {
     @GetMapping(value="/getOrders")
     public @ResponseBody
     List<OrderEntity> getOrdersJson() {
-        List<OrderEntity> allOrders = orderService.getAllOrders();
+        List<OrderEntity> allOrders = OrderService.getAllOrders();
         logger.info("Get orders");
 
         return allOrders;

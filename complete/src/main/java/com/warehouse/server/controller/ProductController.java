@@ -1,7 +1,7 @@
 package com.warehouse.server.controller;
 
 import com.warehouse.server.model.ProductEntity;
-import com.warehouse.server.servicelayer.ProductService;
+import com.warehouse.server.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.*;
