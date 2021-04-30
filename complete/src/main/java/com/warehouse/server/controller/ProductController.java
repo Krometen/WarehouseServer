@@ -25,22 +25,22 @@ public class ProductController {
         this.productService = productService;
     }
 
-    //http://localhost:8081/postNewProduct?productName=phone&price=20000&weight=200&orderNumber=1
     @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/postNewProduct")
-    public ResponseEntity<ProductEntity> newProduct(@RequestBody ProductEntity productEntity){
-        logger.info("Created Product ("+productEntity.getProductName()+") for Order "+productEntity.getOrderNumber());
-        productService.saveProduct(productEntity.getProductName(), productEntity.getPrice(), productEntity.getWeight(),
-                productEntity.getOrderNumber());
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<ProductEntity> newProduct(@RequestBody ProductEntity product){
+        logger.info("Created Product ("+product.getProductName()+") for Order "+product.getOrderNumber());
+        productService.saveProduct(product.getProductName(), product.getPrice(), product.getWeight(),
+                product.getOrderNumber());
+        return new ResponseEntity<>(product, HttpStatus.OK);
     }
 
     //http://localhost:8081/deleteProduct?number=11
     @CrossOrigin(origins = "http://localhost:3000")
-    @RequestMapping("/deleteProduct")
-    public void deleteProduct(@RequestParam(required = false) long number){
+    @DeleteMapping("/deleteProduct")
+    public ResponseEntity<Void> deleteProduct(@RequestParam long number){
         logger.info("Delete Product "+number);
         productService.deleteProduct(number);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     //http://localhost:8081/getProducts?orderNumber=5
