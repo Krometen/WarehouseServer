@@ -25,7 +25,6 @@ public class ProductController {
         this.productService = productService;
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/postNewProduct")
     public ResponseEntity<ProductEntity> newProduct(@RequestBody ProductEntity product){
         logger.info("Created Product ("+product.getProductName()+") for Order "+product.getOrderNumber());
@@ -35,7 +34,6 @@ public class ProductController {
     }
 
     //http://localhost:8081/deleteProduct?number=11
-    @CrossOrigin(origins = "http://localhost:3000")
     @DeleteMapping("/deleteProduct")
     public ResponseEntity<Void> deleteProduct(@RequestParam long number){
         logger.info("Delete Product "+number);
@@ -44,7 +42,6 @@ public class ProductController {
     }
 
     //http://localhost:8081/getProducts?orderNumber=5
-    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping(value="/getProducts")
     public @ResponseBody
     List<ProductEntity> getProductsJson(@RequestParam(required = false) long orderNumber) {

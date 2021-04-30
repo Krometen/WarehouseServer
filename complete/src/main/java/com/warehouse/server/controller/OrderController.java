@@ -25,7 +25,6 @@ public class OrderController {
         this.orderService = orderService;
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/postNewOrder")
     public ResponseEntity<OrderEntity> newOrder(@RequestBody OrderEntity order) {
         logger.info("Creating a Order. Date: "+order.getDate()+"; Address: "+order.getAddress());
@@ -34,7 +33,6 @@ public class OrderController {
     }
 
     //http://localhost:8081/deleteOrder?number=1
-    @CrossOrigin(origins = "http://localhost:3000")
     @DeleteMapping("/deleteOrder")
     public ResponseEntity<Void> deleteOrder(@RequestParam long number) {
         logger.info("Delete Order "+number);
@@ -42,7 +40,6 @@ public class OrderController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping(value="/getOrders")
     public @ResponseBody
     List<OrderEntity> getOrdersJson() {
