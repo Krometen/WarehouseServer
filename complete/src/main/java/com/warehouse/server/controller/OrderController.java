@@ -29,7 +29,7 @@ public class OrderController {
     @PostMapping("/postNewOrder")
     public ResponseEntity<OrderEntity> newOrder(@RequestBody OrderEntity order) {
         logger.info("Creating a Order. Date: "+order.getDate()+"; Address: "+order.getAddress());
-        orderService.saveOrder(order.getDate().toString(), order.getAddress());
+        orderService.saveOrder(order.getDate(), order.getAddress());
         return new ResponseEntity<>(order, HttpStatus.OK);
     }
 

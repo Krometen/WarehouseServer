@@ -33,13 +33,10 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
-    public void saveOrder(String date, String address){
+    public void saveOrder(LocalDate date, String address){
         List<OrderEntity> allOrders = orders.findAll();
         long counter = allOrders.size()+1;
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        formatter = formatter.withLocale( Locale.US );  // Locale specifies human language for translating, and cultural norms for lowercase/uppercase and abbreviations and such. Example: Locale.US or Locale.CANADA_FRENCH
-        LocalDate localDate = LocalDate.parse(date, formatter);
-        OrderEntity order = new OrderEntity(localDate, address, counter, false);
+        OrderEntity order = new OrderEntity(date, address, counter, false);
         try {
             orders.save(order);
         }catch(NullPointerException npe){
