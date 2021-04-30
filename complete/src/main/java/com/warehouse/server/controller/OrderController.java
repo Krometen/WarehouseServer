@@ -4,6 +4,8 @@ import com.warehouse.server.model.OrderEntity;
 import com.warehouse.server.service.OrderService;
 import com.warehouse.server.service.OrderServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,13 +25,12 @@ public class OrderController {
         this.orderService = orderService;
     }
 
-    //http://localhost:8081/postNewOrder?date=01.02.21&address=PUSHKIN+STREET
     @CrossOrigin(origins = "http://localhost:3000")
-    @RequestMapping("/postNewOrder")
-    public void newOrder(@RequestParam(required = false) String date,
-                         @RequestParam(required = false) String address) {
-        logger.info("Creating a Order. Date: "+date+"; Address: "+address);
-        orderService.saveOrder(date, address);
+    @PostMapping("/postNewOrder")
+    public ResponseEntity<OrderEntity> newOrder(@RequestBody OrderEntity order) {
+        logger.info("Creating a Order. Date: "+order.getDate()+"; Address: "+order.getAddress());
+        orderService.saveOrder(order.getDate().toString(), order.getAddress());
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     //http://localhost:8081/deleteOrder?number=1

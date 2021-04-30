@@ -1,8 +1,11 @@
 package com.warehouse.server.controller;
 
+import com.warehouse.server.model.OrderEntity;
 import com.warehouse.server.model.ProductEntity;
 import com.warehouse.server.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,13 +27,12 @@ public class ProductController {
 
     //http://localhost:8081/postNewProduct?productName=phone&price=20000&weight=200&orderNumber=1
     @CrossOrigin(origins = "http://localhost:3000")
-    @RequestMapping("/postNewProduct")
-    public void newProduct(@RequestParam(required = false) String productName,
-                           @RequestParam(required = false) double price,
-                           @RequestParam(required = false) double weight,
-                           @RequestParam(required = false) long orderNumber){
-        logger.info("Created Product ("+productName+") for Order "+orderNumber);
-        productService.saveProduct(productName, price, weight, orderNumber);
+    @PostMapping("/postNewProduct")
+    public ResponseEntity<ProductEntity> newProduct(@RequestBody ProductEntity productEntity){
+        logger.info("Created Product ("+productEntity.getProductName()+") for Order "+productEntity.getOrderNumber());
+        productService.saveProduct(productEntity.getProductName(), productEntity.getPrice(), productEntity.getWeight(),
+                productEntity.getOrderNumber());
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     //http://localhost:8081/deleteProduct?number=11
