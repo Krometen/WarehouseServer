@@ -11,9 +11,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.Locale;
 import java.util.Properties;
 import java.util.logging.Logger;
 
@@ -33,10 +31,10 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
-    public void saveOrder(LocalDate date, String address){
+    public void saveOrder(String orderNumber, LocalDate date, String address){
         List<OrderEntity> allOrders = orders.findAll();
-        long counter = allOrders.size()+1;
-        OrderEntity order = new OrderEntity(date, address, counter, false);
+        long id = allOrders.size()+1;
+        OrderEntity order = new OrderEntity(id, orderNumber, date, address, false);
         try {
             orders.save(order);
         }catch(NullPointerException npe){
@@ -45,7 +43,7 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
-    public void deleteOrder(long number) {
+    public void deleteOrder(long id) {
         Connection conn = null;
         Statement statement = null;
         try{
@@ -56,7 +54,7 @@ public class OrderServiceImpl implements OrderService{
             props.setProperty("ssl","false");
             conn = DriverManager.getConnection(url, props);
             statement = conn.createStatement();
-            String result = String.format("UPDATE order_entity SET is_deleted = true WHERE order_number = %s ;", number);
+            String result = String.format("UPDATE order_entity SET is_deleted = true WHERE id = %s ;", id);
             statement.executeUpdate(result);
         } catch(Exception se){
             //Handle errors for JDBC

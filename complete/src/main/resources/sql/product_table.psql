@@ -1,2 +1,0 @@
-CREATE TABLE product_table(productNumber BIGINT PRIMARY KEY not NULL, productName VARCHAR(225) not NULL, price NUMERIC not NULL,
-weight NUMERIC not NULL, orderNumber BIGINT references order_table(orderNumber), isDeleted BOOL);

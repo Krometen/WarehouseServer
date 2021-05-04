@@ -31,10 +31,10 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public void saveProduct(String productName, double price, double weight, long orderNumber){
+    public void saveProduct(String productNumber, String productName, double price, double weight){
         List<ProductEntity> allProducts = products.findAll();
-        long counter = allProducts.size()+1;
-        ProductEntity product = new ProductEntity(counter, productName, price, weight, orderNumber, false);
+        long id = allProducts.size()+1;
+        ProductEntity product = new ProductEntity(id, productNumber, productName, price, weight, false);
         try {
             products.save(product);
         }catch(NullPointerException npe){
@@ -43,7 +43,7 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public void deleteProduct(long number) {
+    public void deleteProduct(long id) {
         Connection conn = null;
         Statement statement = null;
         try{
@@ -54,7 +54,7 @@ public class ProductServiceImpl implements ProductService{
             props.setProperty("ssl","false");
             conn = DriverManager.getConnection(url, props);
             statement = conn.createStatement();
-            String result = String.format("UPDATE product_entity SET is_deleted = true WHERE product_number = %s ;", number);
+            String result = String.format("UPDATE product_entity SET is_deleted = true WHERE id = %s ;", id);
             statement.executeUpdate(result);
         } catch(Exception se){
             //Handle errors for JDBC
@@ -78,11 +78,11 @@ public class ProductServiceImpl implements ProductService{
         }//end try
     }
 
-    @Override
-    public List<ProductEntity> getProducts(long orderNumber){
-        List<ProductEntity> arr = products.findAll();
-        arr.removeIf(s -> !(s.getOrderNumber() == orderNumber));
-        return arr;
-    }
+//    @Override
+//    public List<ProductEntity> getProducts(long id){
+//        List<ProductEntity> arr = products.findAll();
+//        arr.removeIf(s -> !(s.getId() == id));
+//        return arr;
+//    }
 
 }

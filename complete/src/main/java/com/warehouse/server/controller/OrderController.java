@@ -27,16 +27,17 @@ public class OrderController {
 
     @PostMapping("/postNewOrder")
     public ResponseEntity<OrderEntity> newOrder(@RequestBody OrderEntity order) {
-        logger.info("Creating a Order. Date: "+order.getDate()+"; Address: "+order.getAddress());
-        orderService.saveOrder(order.getDate(), order.getAddress());
+        logger.info("Creating a Order. Number: "+order.getOrderNumber()+"; Date: "+order.getDate()+"; " +
+                "Address: "+order.getAddress());
+        orderService.saveOrder(order.getOrderNumber(), order.getDate(), order.getAddress());
         return new ResponseEntity<>(order, HttpStatus.OK);
     }
 
     //http://localhost:8081/deleteOrder?number=1
     @DeleteMapping("/deleteOrder")
-    public ResponseEntity<Void> deleteOrder(@RequestParam long number) {
-        logger.info("Delete Order "+number);
-        orderService.deleteOrder(number);
+    public ResponseEntity<Void> deleteOrder(@RequestParam long id) {
+        logger.info("Delete Order by id"+id);
+        orderService.deleteOrder(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

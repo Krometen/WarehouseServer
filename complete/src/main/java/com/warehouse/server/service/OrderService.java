@@ -7,10 +7,10 @@ import java.util.List;
 
 public interface OrderService {
 
-    void saveOrder(LocalDate date, String address);
+    void saveOrder(String orderNumber, LocalDate date, String address);
 
     List<OrderEntity> getAllOrders();
 
-    void deleteOrder(long number);
+    void deleteOrder(long id);
 
 }

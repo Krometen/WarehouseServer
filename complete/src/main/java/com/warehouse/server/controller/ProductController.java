@@ -27,26 +27,25 @@ public class ProductController {
 
     @PostMapping("/postNewProduct")
     public ResponseEntity<ProductEntity> newProduct(@RequestBody ProductEntity product){
-        logger.info("Created Product ("+product.getProductName()+") for Order "+product.getOrderNumber());
-        productService.saveProduct(product.getProductName(), product.getPrice(), product.getWeight(),
-                product.getOrderNumber());
+        logger.info("Created Product. Name: "+product.getProductName()+"; Number: "+product.getProductNumber());
+        productService.saveProduct(product.getProductNumber(), product.getProductName(), product.getPrice(), product.getWeight());
         return new ResponseEntity<>(product, HttpStatus.OK);
     }
 
     //http://localhost:8081/deleteProduct?number=11
     @DeleteMapping("/deleteProduct")
-    public ResponseEntity<Void> deleteProduct(@RequestParam long number){
-        logger.info("Delete Product "+number);
-        productService.deleteProduct(number);
+    public ResponseEntity<Void> deleteProduct(@RequestParam long id){
+        logger.info("Delete Product "+id);
+        productService.deleteProduct(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    //http://localhost:8081/getProducts?orderNumber=5
-    @GetMapping(value="/getProducts")
-    public @ResponseBody
-    List<ProductEntity> getProductsJson(@RequestParam(required = false) long orderNumber) {
-        logger.info("Get Products of the Order "+orderNumber);
-        return productService.getProducts(orderNumber);
-    }
+//    //http://localhost:8081/getProducts?orderNumber=5
+//    @GetMapping(value="/getProducts")
+//    public @ResponseBody
+//    List<ProductEntity> getProductsJson(@RequestParam(required = false) long orderNumber) {
+//        logger.info("Get Products of the Order "+orderNumber);
+//        return productService.getProducts(orderNumber);
+//    }
 
 }

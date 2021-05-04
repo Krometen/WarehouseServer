@@ -1,1 +1,0 @@
-CREATE TABLE order_table(orderNumber BIGINT not NULL PRIMARY KEY, date DATE not NULL, address VARCHAR(225) not NULL, isDeleted BOOL not NULL);

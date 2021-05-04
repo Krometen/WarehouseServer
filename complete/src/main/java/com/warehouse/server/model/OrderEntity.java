@@ -8,7 +8,9 @@ import java.time.LocalDate;
 @Entity
 public class OrderEntity {
     @Id
-    private long orderNumber;
+    private long id;
+
+    private String orderNumber;
 
     private LocalDate date;
 
@@ -16,7 +18,9 @@ public class OrderEntity {
 
     private boolean isDeleted;
 
-    public OrderEntity(LocalDate date, String address, long orderNumber, boolean isDeleted){
+    public OrderEntity(long id, String orderNumber, LocalDate date, String address, boolean isDeleted){
+        this.id = id;
+        this.orderNumber = orderNumber;
         this.date = date;
         this.address = address;
         this.orderNumber = orderNumber;
@@ -26,7 +30,11 @@ public class OrderEntity {
     public OrderEntity(){
     }
 
-    public long getOrderNumber() {
+    public long getId() {
+        return id;
+    }
+
+    public String getOrderNumber() {
         return orderNumber;
     }
 

@@ -7,7 +7,9 @@ import javax.persistence.*;
 @Entity
 public class ProductEntity {
     @Id
-    private long productNumber;
+    private long id;
+
+    private String productNumber;
 
     private String productName;
 
@@ -15,20 +17,22 @@ public class ProductEntity {
 
     private double weight;
 
-    private long orderNumber;
-
     private boolean isDeleted;
 
-    public ProductEntity(long productNumber, String productName, double price, double weight, long orderNumber, boolean isDeleted) {
+    public ProductEntity(long id, String productNumber, String productName, double price, double weight, boolean isDeleted) {
+        this.id = id;
         this.productNumber = productNumber;
         this.productName = productName;
         this.price = price;
         this.weight = weight;
-        this.orderNumber = orderNumber;
         this.isDeleted = isDeleted;
     }
 
     public ProductEntity(){
+    }
+
+    public long getId() {
+        return id;
     }
 
     public String getProductName() {
@@ -43,12 +47,8 @@ public class ProductEntity {
         return weight;
     }
 
-    public long getProductNumber() {
+    public String getProductNumber() {
         return productNumber;
-    }
-
-    public long getOrderNumber(){
-        return orderNumber;
     }
 
     public boolean isDeleted() {
