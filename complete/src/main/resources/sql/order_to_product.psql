@@ -1,4 +1,4 @@
-CREATE TABLE order_to_product (
+CREATE TABLE order_to_product_entity (
         order_id BIGINT NOT NULL references order_entity(id) ON DELETE RESTRICT ON UPDATE CASCADE,
         product_id BIGINT NOT NULL references product_entity(id) ON DELETE RESTRICT ON UPDATE CASCADE,
         PRIMARY KEY (order_id, product_id)

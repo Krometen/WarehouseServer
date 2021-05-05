@@ -1,36 +1,58 @@
 package com.warehouse.server.model;
 
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 
 @Entity
+//@IdClass(OrderToProductId.class)
 public class OrderToProductEntity {
 
-    @Id
-    private long id;
+    @EmbeddedId
+    private OrderToProductId id;
+//
+//    @Id
+//    private long orderId;
+//
+//    @Id
+//    private long productId;
 
-    private long orderId;
+//    public OrderToProductEntity(long orderId, long productId) {
+//        this.orderId = orderId;
+//        this.productId = productId;
+//    }
+//
+//    public OrderToProductEntity() {}
+//
+//    public long getOrderId() {
+//        return orderId;
+//    }
+//
+//    public long getProductId() {
+//        return productId;
+//    }
+//
+//    public void setOrderId(long orderId) {
+//        this.orderId = orderId;
+//    }
+//
+//    public void setProductId(long productId) {
+//        this.productId = productId;
+//    }
 
-    private long productId;
-
-    public OrderToProductEntity(long id, long orderId, long productId) {
+    public OrderToProductEntity(OrderToProductId id) {
         this.id = id;
-        this.orderId = orderId;
-        this.productId = productId;
     }
 
-    public OrderToProductEntity(){}
+    public OrderToProductEntity() {}
 
-    public long getId() {
+    public OrderToProductId getId() {
         return id;
     }
 
-    public long getOrderId() {
-        return orderId;
-    }
-
-    public long getProductId() {
-        return productId;
+    public void setId(OrderToProductId id) {
+        this.id = id;
     }
 
 }

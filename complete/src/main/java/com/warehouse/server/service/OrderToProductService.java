@@ -8,8 +8,8 @@ public interface OrderToProductService {
 
     void saveRelationship(long orderId, long productId);
 
-    List<OrderToProductEntity> getAllRelationships();
+    void deleteRelationship(OrderToProductEntity relationship);
 
-    void deleteRelationship(long id);
+    List<OrderToProductEntity> getAllRelationships();
 
 }
