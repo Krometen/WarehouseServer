@@ -8,15 +8,21 @@ import java.util.List;
 //JPA Заказов
 @Entity
 public class OrderEntity {
+
     @Id
+    @Column(nullable = false)
     private long id;
 
+    @Column(nullable = false)
     private String orderNumber;
 
+    @Column(nullable = false)
     private LocalDate date;
 
+    @Column(nullable = false)
     private String address;
 
+    @Column(nullable = false)
     private boolean isDeleted;
 
     @ManyToMany

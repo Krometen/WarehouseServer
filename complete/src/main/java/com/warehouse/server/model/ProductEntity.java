@@ -7,17 +7,24 @@ import java.util.List;
 //JPA Товаров
 @Entity
 public class ProductEntity {
+
     @Id
+    @Column(nullable = false)
     private long id;
 
+    @Column(nullable = false)
     private String productNumber;
 
+    @Column(nullable = false)
     private String productName;
 
+    @Column(nullable = false)
     private double price;
 
+    @Column(nullable = false)
     private double weight;
 
+    @Column(nullable = false)
     private boolean isDeleted;
 
     @ManyToMany(mappedBy = "productEntityList")
