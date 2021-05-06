@@ -10,6 +10,8 @@ import java.util.List;
 public class OrderEntity {
 
     @Id
+    @SequenceGenerator(name="orders_seq", sequenceName="seq_orders", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "orders_seq")
     @Column(nullable = false)
     private long id;
 
@@ -42,6 +44,10 @@ public class OrderEntity {
     }
 
     public OrderEntity(){
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public long getId() {

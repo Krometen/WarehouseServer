@@ -34,7 +34,8 @@ public class OrderServiceImpl implements OrderService{
     @Override
     public void saveOrder(String orderNumber, LocalDate date, String address, List<ProductEntity> productEntityList){
         List<OrderEntity> allOrders = orders.findAll();
-        long id = allOrders.size()+1;
+//        long id = allOrders.size()+1;
+        long id = 0;
         OrderEntity order = new OrderEntity(id, orderNumber, date, address, false, productEntityList);
         try {
             orders.save(order);

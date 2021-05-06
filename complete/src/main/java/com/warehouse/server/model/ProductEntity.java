@@ -9,6 +9,8 @@ import java.util.List;
 public class ProductEntity {
 
     @Id
+    @SequenceGenerator(name="product_seq", sequenceName="seq_product", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "product_seq")
     @Column(nullable = false)
     private long id;
 
@@ -44,6 +46,10 @@ public class ProductEntity {
 
     public List<OrderEntity> getOrderEntityList() {
         return orderEntityList;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public long getId() {

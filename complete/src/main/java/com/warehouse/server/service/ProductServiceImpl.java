@@ -33,7 +33,8 @@ public class ProductServiceImpl implements ProductService{
     @Override
     public void saveProduct(String productNumber, String productName, double price, double weight){
         List<ProductEntity> allProducts = products.findAll();
-        long id = allProducts.size()+1;
+//        long id = allProducts.size()+1;
+        long id = 0;
         ProductEntity product = new ProductEntity(id, productNumber, productName, price, weight, false);
         try {
             products.save(product);
