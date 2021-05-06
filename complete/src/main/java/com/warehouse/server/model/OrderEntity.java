@@ -2,6 +2,7 @@ package com.warehouse.server.model;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 
 //JPA Заказов
@@ -18,13 +19,20 @@ public class OrderEntity {
 
     private boolean isDeleted;
 
-    public OrderEntity(long id, String orderNumber, LocalDate date, String address, boolean isDeleted){
+    @ManyToMany
+    @JoinTable(
+            name = "order_to_product_entity",
+            joinColumns = @JoinColumn(name = "order_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id"))
+    private List<ProductEntity> productEntityList;
+
+    public OrderEntity(long id, String orderNumber, LocalDate date, String address, boolean isDeleted, List<ProductEntity> productEntityList){
         this.id = id;
         this.orderNumber = orderNumber;
         this.date = date;
         this.address = address;
-        this.orderNumber = orderNumber;
         this.isDeleted = isDeleted;
+        this.productEntityList = productEntityList;
     }
 
     public OrderEntity(){
@@ -49,4 +57,9 @@ public class OrderEntity {
     public boolean isDeleted() {
         return isDeleted;
     }
+
+    public List<ProductEntity> getProductEntityList() {
+        return productEntityList;
+    }
+
 }

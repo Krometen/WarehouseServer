@@ -29,7 +29,7 @@ public class OrderController {
     public ResponseEntity<OrderEntity> newOrder(@RequestBody OrderEntity order) {
         logger.info("Creating a Order. Number: "+order.getOrderNumber()+"; Date: "+order.getDate()+"; " +
                 "Address: "+order.getAddress());
-        orderService.saveOrder(order.getOrderNumber(), order.getDate(), order.getAddress());
+        orderService.saveOrder(order.getOrderNumber(), order.getDate(), order.getAddress(), order.getProductEntityList());
         return new ResponseEntity<>(order, HttpStatus.OK);
     }
 

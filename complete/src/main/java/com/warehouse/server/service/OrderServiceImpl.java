@@ -1,6 +1,7 @@
 package com.warehouse.server.service;
 
 import com.warehouse.server.model.OrderEntity;
+import com.warehouse.server.model.ProductEntity;
 import com.warehouse.server.repositories.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -31,10 +32,10 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
-    public void saveOrder(String orderNumber, LocalDate date, String address){
+    public void saveOrder(String orderNumber, LocalDate date, String address, List<ProductEntity> productEntityList){
         List<OrderEntity> allOrders = orders.findAll();
         long id = allOrders.size()+1;
-        OrderEntity order = new OrderEntity(id, orderNumber, date, address, false);
+        OrderEntity order = new OrderEntity(id, orderNumber, date, address, false, productEntityList);
         try {
             orders.save(order);
         }catch(NullPointerException npe){

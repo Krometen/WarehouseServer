@@ -1,6 +1,7 @@
 package com.warehouse.server.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 
 //JPA Товаров
@@ -19,6 +20,9 @@ public class ProductEntity {
 
     private boolean isDeleted;
 
+    @ManyToMany(mappedBy = "productEntityList")
+    private List<OrderEntity> orderEntityList;
+
     public ProductEntity(long id, String productNumber, String productName, double price, double weight, boolean isDeleted) {
         this.id = id;
         this.productNumber = productNumber;
@@ -29,6 +33,10 @@ public class ProductEntity {
     }
 
     public ProductEntity(){
+    }
+
+    public List<OrderEntity> getOrderEntityList() {
+        return orderEntityList;
     }
 
     public long getId() {
