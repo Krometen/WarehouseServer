@@ -86,23 +86,25 @@ public class ProductServiceImpl implements ProductService{
     @Override
     public List<ProductDto> getProducts(long orderId){
         List<ProductEntity> productEntityList = products.findAll();
-        List<ProductDto> productDtoList = new ArrayList<>();
+        List<ProductDto> productDtoList = new ArrayList<>(); // список продуктов по заказу
         for (ProductEntity productEntity:productEntityList) {
             productDtoList.add(mapperProductService.mapToProductDto(productEntity));
         }
         //удаляем из списка продуктов все продукты не связанные с запрашиваемым заказом для вывода
-        AtomicInteger counter = new AtomicInteger();
+        List<ProductDto> forRemove = new ArrayList<>(); //массив с продуктами, отставленными для удаления
         for (ProductDto productDto:productDtoList) {
+            AtomicInteger counter = new AtomicInteger();
             for (OrderEntity orderDto:productDto.getOrderDtoList()) {
-                if(orderDto.getId() == orderId){
-                    System.out.println("id"+orderDto.getId());
+                if(orderDto.getId() == orderId){ //ищем совпадения запрашиваемого заказа и связей
                     counter.getAndIncrement();
                 }
             }
-            System.out.println(counter.get());
-            if(counter.get()==0){
-                productDtoList.remove(productDto);
+            if(counter.get()==0){ //если нужных связей нет - откладываем на удаление
+                forRemove.add(productDto);
             }
+        }
+        for (ProductDto forRemoveProductDto:forRemove) { //удаляем лишние продукты из списка по заказу
+            productDtoList.remove(forRemoveProductDto);
         }
         //не возвращяем зависимости
         for (ProductDto productDto:productDtoList) {
