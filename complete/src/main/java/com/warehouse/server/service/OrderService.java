@@ -1,6 +1,6 @@
 package com.warehouse.server.service;
 
-import com.warehouse.server.model.OrderEntity;
+import com.warehouse.server.dto.OrderDto;
 import com.warehouse.server.model.ProductEntity;
 
 import java.time.LocalDate;
@@ -10,7 +10,7 @@ public interface OrderService {
 
     void saveOrder(String orderNumber, LocalDate date, String address, List<ProductEntity> productEntityList);
 
-    List<OrderEntity> getAllOrders();
+    List<OrderDto> getAllOrders();
 
     void deleteOrder(long id);
 

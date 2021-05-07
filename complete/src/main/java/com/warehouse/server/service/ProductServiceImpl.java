@@ -1,6 +1,8 @@
 package com.warehouse.server.service;
 
 import com.warehouse.server.controller.ProductController;
+import com.warehouse.server.dto.ProductDto;
+import com.warehouse.server.model.OrderEntity;
 import com.warehouse.server.model.ProductEntity;
 import com.warehouse.server.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +13,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Logger;
 
 @Service
@@ -24,10 +28,13 @@ public class ProductServiceImpl implements ProductService{
 
     private final ProductRepository products;
 
+    private final MapperProductService mapperProductService;
+
     @Autowired
-    public ProductServiceImpl(Environment env, ProductRepository products) {
+    public ProductServiceImpl(Environment env, ProductRepository products, MapperProductService mapperProductService) {
         this.env = env;
         this.products = products;
+        this.mapperProductService = mapperProductService;
     }
 
     @Override
@@ -76,11 +83,33 @@ public class ProductServiceImpl implements ProductService{
         }//end try
     }
 
-//    @Override
-//    public List<ProductEntity> getProducts(long id){
-//        List<ProductEntity> arr = products.findAll();
-//        arr.removeIf(s -> !(s.getId() == id));
-//        return arr;
-//    }
+    @Override
+    public List<ProductDto> getProducts(long orderId){
+        List<ProductEntity> productEntityList = products.findAll();
+        List<ProductDto> productDtoList = new ArrayList<>();
+        for (ProductEntity productEntity:productEntityList) {
+            productDtoList.add(mapperProductService.mapToProductDto(productEntity));
+        }
+        //удаляем из списка продуктов все продукты не связанные с запрашиваемым заказом для вывода
+        AtomicInteger counter = new AtomicInteger();
+        for (ProductDto productDto:productDtoList) {
+            for (OrderEntity orderDto:productDto.getOrderDtoList()) {
+                if(orderDto.getId() == orderId){
+                    System.out.println("id"+orderDto.getId());
+                    counter.getAndIncrement();
+                }
+            }
+            System.out.println(counter.get());
+            if(counter.get()==0){
+                productDtoList.remove(productDto);
+            }
+        }
+        //не возвращяем зависимости
+        for (ProductDto productDto:productDtoList) {
+            List<OrderEntity> orderEntityIdList = new ArrayList<>();
+            productDto.setOrderDtoList(orderEntityIdList);
+        }
+        return productDtoList;
+    }
 
 }

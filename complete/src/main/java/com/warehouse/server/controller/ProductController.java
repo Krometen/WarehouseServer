@@ -1,6 +1,6 @@
 package com.warehouse.server.controller;
 
-import com.warehouse.server.model.OrderEntity;
+import com.warehouse.server.dto.ProductDto;
 import com.warehouse.server.model.ProductEntity;
 import com.warehouse.server.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.concurrent.atomic.AtomicLong;
 import java.util.logging.Logger;
 
 
@@ -41,12 +40,12 @@ public class ProductController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-//    //http://localhost:8081/getProducts?orderNumber=5
-//    @GetMapping(value="/getProducts")
-//    public @ResponseBody
-//    List<ProductEntity> getProductsJson(@RequestParam(required = false) long orderNumber) {
-//        logger.info("Get Products of the Order "+orderNumber);
-//        return productService.getProducts(orderNumber);
-//    }
+    //http://localhost:8081/getProducts?orderId=5
+    @GetMapping(value="/getProducts")
+    public @ResponseBody
+    List<ProductDto> getProductsJson(@RequestParam(required = false) long orderId) {
+        logger.info("Get Products of the Order "+orderId);
+        return productService.getProducts(orderId);
+    }
 
 }

@@ -1,5 +1,6 @@
 package com.warehouse.server.service;
 
+import com.warehouse.server.dto.ProductDto;
 import com.warehouse.server.model.OrderEntity;
 import com.warehouse.server.model.ProductEntity;
 import java.util.List;
@@ -10,6 +11,6 @@ public interface ProductService {
 
     void deleteProduct(long id);
 
-   // List<ProductEntity> getProducts();
+    List<ProductDto> getProducts(long orderId);
 
 }

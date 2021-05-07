@@ -44,35 +44,59 @@ public class ProductEntity {
     public ProductEntity(){
     }
 
-    public List<OrderEntity> getOrderEntityList() {
-        return orderEntityList;
+    public long getId() {
+        return id;
     }
 
     public void setId(long id) {
         this.id = id;
     }
 
-    public long getId() {
-        return id;
+    public String getProductNumber() {
+        return productNumber;
+    }
+
+    public void setProductNumber(String productNumber) {
+        this.productNumber = productNumber;
     }
 
     public String getProductName() {
         return productName;
     }
 
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
     public double getPrice() {
         return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 
     public double getWeight() {
         return weight;
     }
 
-    public String getProductNumber() {
-        return productNumber;
+    public void setWeight(double weight) {
+        this.weight = weight;
     }
 
     public boolean isDeleted() {
         return isDeleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
+    }
+
+    public List<OrderEntity> getOrderEntityList() {
+        return orderEntityList;
+    }
+
+    public void setOrderEntityList(List<OrderEntity> orderEntityList) {
+        this.orderEntityList = orderEntityList;
     }
 }

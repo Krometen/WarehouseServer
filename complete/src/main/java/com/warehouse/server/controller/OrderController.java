@@ -1,5 +1,6 @@
 package com.warehouse.server.controller;
 
+import com.warehouse.server.dto.OrderDto;
 import com.warehouse.server.model.OrderEntity;
 import com.warehouse.server.service.OrderService;
 import com.warehouse.server.service.OrderServiceImpl;
@@ -43,7 +44,7 @@ public class OrderController {
 
     @GetMapping(value="/getOrders")
     public @ResponseBody
-    List<OrderEntity> getOrdersJson() {
+    List<OrderDto> getOrdersJson() {
         logger.info("Get Orders");
         return orderService.getAllOrders();
     }

@@ -1,5 +1,7 @@
 package com.warehouse.server.service;
 
+import com.warehouse.server.dto.OrderDto;
+import com.warehouse.server.dto.ProductDto;
 import com.warehouse.server.model.OrderEntity;
 import com.warehouse.server.model.ProductEntity;
 import com.warehouse.server.repositories.OrderRepository;
@@ -12,6 +14,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import java.util.logging.Logger;
@@ -25,17 +28,20 @@ public class OrderServiceImpl implements OrderService{
 
     private final Environment env;
 
+    private final MapperOrderService mapperOrderService;
+
     @Autowired
-    public OrderServiceImpl(OrderRepository orders, Environment env) {
+    public OrderServiceImpl(OrderRepository orders, Environment env, MapperOrderService mapperOrderService) {
         this.orders = orders;
         this.env = env;
+        this.mapperOrderService = mapperOrderService;
     }
 
     @Override
     public void saveOrder(String orderNumber, LocalDate date, String address, List<ProductEntity> productEntityList){
-        OrderEntity order = new OrderEntity(0, orderNumber, date, address, false, productEntityList);
+        OrderEntity orderEntity = new OrderEntity(0, orderNumber, date, address, false, productEntityList);
         try {
-            orders.save(order);
+            orders.save(orderEntity);
         }catch(NullPointerException npe){
             logger.warning("No repository: " + npe);
         }
@@ -78,8 +84,18 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
-    public List<OrderEntity> getAllOrders(){
-        return orders.findAll();
+    public List<OrderDto> getAllOrders(){
+        List<OrderEntity> orderEntityList = orders.findAll();
+        List<OrderDto> orderDtoList = new ArrayList<>();
+        for (OrderEntity orderEntity:orderEntityList) {
+            orderDtoList.add(mapperOrderService.mapToOrderDto(orderEntity));
+        }
+        //не возвращяем зависимости
+        for (OrderDto orderDto:orderDtoList) {
+            List<ProductEntity> productDtoIdList = new ArrayList<>();
+            orderDto.setProductDtoList(productDtoIdList);
+        }
+        return orderDtoList;
     }
 
 }

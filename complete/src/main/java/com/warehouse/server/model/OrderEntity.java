@@ -46,32 +46,52 @@ public class OrderEntity {
     public OrderEntity(){
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
-
     public long getId() {
         return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getOrderNumber() {
         return orderNumber;
     }
 
+    public void setOrderNumber(String orderNumber) {
+        this.orderNumber = orderNumber;
+    }
+
     public LocalDate getDate() {
         return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 
     public String getAddress() {
         return address;
     }
 
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
     public boolean isDeleted() {
         return isDeleted;
     }
 
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
+    }
+
     public List<ProductEntity> getProductEntityList() {
         return productEntityList;
+    }
+
+    public void setProductEntityList(List<ProductEntity> productEntityList) {
+        this.productEntityList = productEntityList;
     }
 
 }
