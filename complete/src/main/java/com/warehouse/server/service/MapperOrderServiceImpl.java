@@ -14,7 +14,6 @@ public class MapperOrderServiceImpl implements MapperOrderService{
         orderDto.setOrderNumber(orderEntity.getOrderNumber());
         orderDto.setDate(orderEntity.getDate());
         orderDto.setAddress(orderEntity.getAddress());
-        orderDto.setProductDtoList(orderEntity.getProductEntityList());
         return orderDto;
     }
 
@@ -26,7 +25,6 @@ public class MapperOrderServiceImpl implements MapperOrderService{
         orderEntity.setDate(orderDto.getDate());
         orderEntity.setAddress(orderDto.getAddress());
         orderEntity.setDeleted(orderDto.isDeleted());
-        orderEntity.setProductEntityList(orderDto.getProductDtoList());
         return orderEntity;
     }
 

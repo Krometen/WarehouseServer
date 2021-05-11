@@ -12,7 +12,7 @@ public class ProductDto {
     private double price;
     private double weight;
     private boolean isDeleted;
-    private List<OrderEntity> orderDtoList;
+    private List<OrderDto> orderDtoList;
 
     public long getId() {
         return id;
@@ -62,11 +62,11 @@ public class ProductDto {
         isDeleted = deleted;
     }
 
-    public List<OrderEntity> getOrderDtoList() {
+    public List<OrderDto> getOrderDtoList() {
         return orderDtoList;
     }
 
-    public void setOrderDtoList(List<OrderEntity> orderDtoList) {
+    public void setOrderDtoList(List<OrderDto> orderDtoList) {
         this.orderDtoList = orderDtoList;
     }
 }

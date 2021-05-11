@@ -1,11 +1,24 @@
 package com.warehouse.server.service;
 
+import com.warehouse.server.dto.OrderDto;
 import com.warehouse.server.dto.ProductDto;
+import com.warehouse.server.model.OrderEntity;
 import com.warehouse.server.model.ProductEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class MapperProductServiceImpl implements MapperProductService{
+
+    private final MapperOrderService mapperOrderService;
+
+    @Autowired
+    public MapperProductServiceImpl(MapperOrderService mapperOrderService) {
+        this.mapperOrderService = mapperOrderService;
+    }
 
     @Override
     public ProductDto mapToProductDto(ProductEntity productEntity) {
@@ -16,7 +29,12 @@ public class MapperProductServiceImpl implements MapperProductService{
         productDto.setPrice(productEntity.getPrice());
         productDto.setWeight(productEntity.getWeight());
         productDto.setDeleted(productEntity.isDeleted());
-        productDto.setOrderDtoList(productEntity.getOrderEntityList());
+        //маппинг OrderEntityList в OrderDtoList
+        List<OrderDto> orderDtoList = new ArrayList<>();
+        for (OrderEntity orderEntity:productEntity.getOrderEntityList()) {
+            orderDtoList.add(mapperOrderService.mapToOrderDto(orderEntity));
+        }
+        productDto.setOrderDtoList(orderDtoList);
         return productDto;
     }
 
@@ -29,7 +47,12 @@ public class MapperProductServiceImpl implements MapperProductService{
         productEntity.setPrice(productDto.getPrice());
         productEntity.setWeight(productDto.getWeight());
         productEntity.setDeleted(productDto.isDeleted());
-        productEntity.setOrderEntityList(productDto.getOrderDtoList());
+        //маппинг OrderDtoList в OrderEntityList
+        List<OrderEntity> orderEntityList = new ArrayList<>();
+        for (OrderDto orderDto:productDto.getOrderDtoList()) {
+            orderEntityList.add(mapperOrderService.mapToOrderEntity(orderDto));
+        }
+        productEntity.setOrderEntityList(orderEntityList);
         return productEntity;
     }
 

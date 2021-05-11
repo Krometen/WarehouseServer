@@ -1,6 +1,7 @@
 package com.warehouse.server.service;
 
 import com.warehouse.server.controller.ProductController;
+import com.warehouse.server.dto.OrderDto;
 import com.warehouse.server.dto.ProductDto;
 import com.warehouse.server.model.OrderEntity;
 import com.warehouse.server.model.ProductEntity;
@@ -94,7 +95,7 @@ public class ProductServiceImpl implements ProductService{
         List<ProductDto> forRemove = new ArrayList<>(); //массив с продуктами, отставленными для удаления
         for (ProductDto productDto:productDtoList) {
             AtomicInteger counter = new AtomicInteger();
-            for (OrderEntity orderDto:productDto.getOrderDtoList()) {
+            for (OrderDto orderDto:productDto.getOrderDtoList()) {
                 if(orderDto.getId() == orderId){ //ищем совпадения запрашиваемого заказа и связей
                     counter.getAndIncrement();
                 }
@@ -108,8 +109,8 @@ public class ProductServiceImpl implements ProductService{
         }
         //не возвращяем зависимости
         for (ProductDto productDto:productDtoList) {
-            List<OrderEntity> orderEntityIdList = new ArrayList<>();
-            productDto.setOrderDtoList(orderEntityIdList);
+            List<OrderDto> orderDtoIdList = new ArrayList<>();
+            productDto.setOrderDtoList(orderDtoIdList);
         }
         return productDtoList;
     }

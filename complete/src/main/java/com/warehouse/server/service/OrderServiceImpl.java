@@ -90,11 +90,6 @@ public class OrderServiceImpl implements OrderService{
         for (OrderEntity orderEntity:orderEntityList) {
             orderDtoList.add(mapperOrderService.mapToOrderDto(orderEntity));
         }
-        //не возвращяем зависимости
-        for (OrderDto orderDto:orderDtoList) {
-            List<ProductEntity> productDtoIdList = new ArrayList<>();
-            orderDto.setProductDtoList(productDtoIdList);
-        }
         return orderDtoList;
     }
 

@@ -12,7 +12,6 @@ public class OrderDto {
     private LocalDate date;
     private String address;
     private boolean isDeleted;
-    private List<ProductEntity> productDtoList;
 
     public long getId() {
         return id;
@@ -52,14 +51,6 @@ public class OrderDto {
 
     public void setDeleted(boolean deleted) {
         isDeleted = deleted;
-    }
-
-    public List<ProductEntity> getProductDtoList() {
-        return productDtoList;
-    }
-
-    public void setProductDtoList(List<ProductEntity> productDtoList) {
-        this.productDtoList = productDtoList;
     }
 
 }
