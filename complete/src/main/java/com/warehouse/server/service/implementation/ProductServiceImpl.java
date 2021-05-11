@@ -1,12 +1,14 @@
-package com.warehouse.server.service;
+package com.warehouse.server.service.implementation;
 
 import com.warehouse.server.controller.ProductController;
 import com.warehouse.server.dto.OrderDto;
 import com.warehouse.server.dto.ProductDto;
-import com.warehouse.server.model.OrderEntity;
 import com.warehouse.server.model.ProductEntity;
 import com.warehouse.server.repositories.ProductRepository;
+import com.warehouse.server.service.Mapper;
+import com.warehouse.server.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
@@ -29,10 +31,11 @@ public class ProductServiceImpl implements ProductService{
 
     private final ProductRepository products;
 
-    private final MapperProductService mapperProductService;
+    private final Mapper<ProductDto, ProductEntity> mapperProductService;
 
     @Autowired
-    public ProductServiceImpl(Environment env, ProductRepository products, MapperProductService mapperProductService) {
+    public ProductServiceImpl(Environment env, ProductRepository products,
+                              @Qualifier("mapperProductServiceImpl") Mapper<ProductDto, ProductEntity> mapperProductService) {
         this.env = env;
         this.products = products;
         this.mapperProductService = mapperProductService;
@@ -89,7 +92,7 @@ public class ProductServiceImpl implements ProductService{
         List<ProductEntity> productEntityList = products.findAll();
         List<ProductDto> productDtoList = new ArrayList<>(); // список продуктов по заказу
         for (ProductEntity productEntity:productEntityList) {
-            productDtoList.add(mapperProductService.mapToProductDto(productEntity));
+            productDtoList.add(mapperProductService.mapToDto(productEntity));
         }
         //удаляем из списка продуктов все продукты не связанные с запрашиваемым заказом для вывода
         List<ProductDto> forRemove = new ArrayList<>(); //массив с продуктами, отставленными для удаления

@@ -1,9 +1,6 @@
 package com.warehouse.server.dto;
 
-import com.warehouse.server.model.ProductEntity;
-
 import java.time.LocalDate;
-import java.util.List;
 
 public class OrderDto {
 

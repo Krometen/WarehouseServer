@@ -1,7 +1,5 @@
 package com.warehouse.server.dto;
 
-import com.warehouse.server.model.OrderEntity;
-
 import java.util.List;
 
 public class ProductDto {

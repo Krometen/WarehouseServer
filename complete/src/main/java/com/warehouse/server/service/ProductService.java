@@ -1,8 +1,6 @@
 package com.warehouse.server.service;
 
 import com.warehouse.server.dto.ProductDto;
-import com.warehouse.server.model.OrderEntity;
-import com.warehouse.server.model.ProductEntity;
 import java.util.List;
 
 public interface ProductService {

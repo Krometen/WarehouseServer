@@ -1,14 +1,15 @@
-package com.warehouse.server.service;
+package com.warehouse.server.service.implementation;
 
 import com.warehouse.server.dto.OrderDto;
 import com.warehouse.server.model.OrderEntity;
-import org.springframework.stereotype.Service;
+import com.warehouse.server.service.Mapper;
+import org.springframework.stereotype.Component;
 
-@Service
-public class MapperOrderServiceImpl implements MapperOrderService{
+@Component
+public class MapperOrderServiceImpl implements Mapper<OrderDto, OrderEntity> {
 
     @Override
-    public OrderDto mapToOrderDto(OrderEntity orderEntity) {
+    public OrderDto mapToDto(OrderEntity orderEntity) {
         OrderDto orderDto = new OrderDto();
         orderDto.setId(orderEntity.getId());
         orderDto.setOrderNumber(orderEntity.getOrderNumber());
@@ -18,7 +19,7 @@ public class MapperOrderServiceImpl implements MapperOrderService{
     }
 
     @Override
-    public OrderEntity mapToOrderEntity(OrderDto orderDto) {
+    public OrderEntity mapToEntity(OrderDto orderDto) {
         OrderEntity orderEntity = new OrderEntity();
         orderEntity.setId(orderDto.getId());
         orderEntity.setOrderNumber(orderDto.getOrderNumber());

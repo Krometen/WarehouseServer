@@ -3,7 +3,7 @@ package com.warehouse.server.controller;
 import com.warehouse.server.dto.OrderDto;
 import com.warehouse.server.model.OrderEntity;
 import com.warehouse.server.service.OrderService;
-import com.warehouse.server.service.OrderServiceImpl;
+import com.warehouse.server.service.implementation.OrderServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -1,11 +1,13 @@
-package com.warehouse.server.service;
+package com.warehouse.server.service.implementation;
 
 import com.warehouse.server.dto.OrderDto;
-import com.warehouse.server.dto.ProductDto;
 import com.warehouse.server.model.OrderEntity;
 import com.warehouse.server.model.ProductEntity;
 import com.warehouse.server.repositories.OrderRepository;
+import com.warehouse.server.service.Mapper;
+import com.warehouse.server.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +22,7 @@ import java.util.Properties;
 import java.util.logging.Logger;
 
 @Service
-public class OrderServiceImpl implements OrderService{
+public class OrderServiceImpl implements OrderService {
 
     private final static Logger logger = Logger.getLogger(OrderServiceImpl.class.getName());
 
@@ -28,10 +30,11 @@ public class OrderServiceImpl implements OrderService{
 
     private final Environment env;
 
-    private final MapperOrderService mapperOrderService;
+    private final Mapper<OrderDto, OrderEntity> mapperOrderService;
 
     @Autowired
-    public OrderServiceImpl(OrderRepository orders, Environment env, MapperOrderService mapperOrderService) {
+    public OrderServiceImpl(OrderRepository orders, Environment env,
+                            @Qualifier("mapperOrderServiceImpl") Mapper<OrderDto, OrderEntity> mapperOrderService) {
         this.orders = orders;
         this.env = env;
         this.mapperOrderService = mapperOrderService;
@@ -88,7 +91,7 @@ public class OrderServiceImpl implements OrderService{
         List<OrderEntity> orderEntityList = orders.findAll();
         List<OrderDto> orderDtoList = new ArrayList<>();
         for (OrderEntity orderEntity:orderEntityList) {
-            orderDtoList.add(mapperOrderService.mapToOrderDto(orderEntity));
+            orderDtoList.add(mapperOrderService.mapToDto(orderEntity));
         }
         return orderDtoList;
     }
