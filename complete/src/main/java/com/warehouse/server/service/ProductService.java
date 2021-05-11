@@ -9,8 +9,8 @@ public interface ProductService {
 
     void saveProduct(String productNumber, String productName, double price, double weight);
 
-    void deleteProduct(long id);
+    void deleteProduct(Long id);
 
-    List<ProductDto> getProducts(long orderId);
+    List<ProductDto> getProducts(Long orderId);
 
 }

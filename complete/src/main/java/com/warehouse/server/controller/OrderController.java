@@ -36,7 +36,7 @@ public class OrderController {
 
     //http://localhost:8081/deleteOrder?number=1
     @DeleteMapping("/deleteOrder")
-    public ResponseEntity<Void> deleteOrder(@RequestParam long id) {
+    public ResponseEntity<Void> deleteOrder(@RequestParam Long id) {
         logger.info("Delete Order by id"+id);
         orderService.deleteOrder(id);
         return new ResponseEntity<>(HttpStatus.OK);

@@ -12,7 +12,7 @@ public class ProductEntity {
     @SequenceGenerator(name="product_seq", sequenceName="seq_product", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "product_seq")
     @Column(nullable = false)
-    private long id;
+    private Long id;
 
     @Column(nullable = false)
     private String productNumber;
@@ -32,7 +32,7 @@ public class ProductEntity {
     @ManyToMany(mappedBy = "productEntityList")
     private List<OrderEntity> orderEntityList;
 
-    public ProductEntity(long id, String productNumber, String productName, double price, double weight, boolean isDeleted) {
+    public ProductEntity(Long id, String productNumber, String productName, double price, double weight, boolean isDeleted) {
         this.id = id;
         this.productNumber = productNumber;
         this.productName = productName;
@@ -44,11 +44,11 @@ public class ProductEntity {
     public ProductEntity(){
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

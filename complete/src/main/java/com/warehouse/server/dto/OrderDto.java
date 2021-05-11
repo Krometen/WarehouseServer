@@ -7,17 +7,17 @@ import java.util.List;
 
 public class OrderDto {
 
-    private long id;
+    private Long id;
     private String orderNumber;
     private LocalDate date;
     private String address;
     private boolean isDeleted;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

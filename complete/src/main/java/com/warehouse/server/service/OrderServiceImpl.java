@@ -39,7 +39,7 @@ public class OrderServiceImpl implements OrderService{
 
     @Override
     public void saveOrder(String orderNumber, LocalDate date, String address, List<ProductEntity> productEntityList){
-        OrderEntity orderEntity = new OrderEntity(0, orderNumber, date, address, false, productEntityList);
+        OrderEntity orderEntity = new OrderEntity(null, orderNumber, date, address, false, productEntityList);
         try {
             orders.save(orderEntity);
         }catch(NullPointerException npe){
@@ -48,7 +48,7 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
-    public void deleteOrder(long id) {
+    public void deleteOrder(Long id) {
         Connection conn = null;
         Statement statement = null;
         try{

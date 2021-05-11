@@ -34,7 +34,7 @@ public class ProductController {
 
     //http://localhost:8081/deleteProduct?number=11
     @DeleteMapping("/deleteProduct")
-    public ResponseEntity<Void> deleteProduct(@RequestParam long id){
+    public ResponseEntity<Void> deleteProduct(@RequestParam Long id){
         logger.info("Delete Product "+id);
         productService.deleteProduct(id);
         return new ResponseEntity<>(HttpStatus.OK);
@@ -43,7 +43,7 @@ public class ProductController {
     //http://localhost:8081/getProducts?orderId=5
     @GetMapping(value="/getProducts")
     public @ResponseBody
-    List<ProductDto> getProductsJson(@RequestParam(required = false) long orderId) {
+    List<ProductDto> getProductsJson(@RequestParam(required = false) Long orderId) {
         logger.info("Get Products of the Order "+orderId);
         return productService.getProducts(orderId);
     }

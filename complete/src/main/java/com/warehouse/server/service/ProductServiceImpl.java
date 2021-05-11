@@ -40,7 +40,7 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public void saveProduct(String productNumber, String productName, double price, double weight){
-        ProductEntity product = new ProductEntity(0, productNumber, productName, price, weight, false);
+        ProductEntity product = new ProductEntity(null, productNumber, productName, price, weight, false);
         try {
             products.save(product);
         }catch(NullPointerException npe){
@@ -49,7 +49,7 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public void deleteProduct(long id) {
+    public void deleteProduct(Long id) {
         Connection conn = null;
         Statement statement = null;
         try{
@@ -85,7 +85,7 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public List<ProductDto> getProducts(long orderId){
+    public List<ProductDto> getProducts(Long orderId){
         List<ProductEntity> productEntityList = products.findAll();
         List<ProductDto> productDtoList = new ArrayList<>(); // список продуктов по заказу
         for (ProductEntity productEntity:productEntityList) {
@@ -96,7 +96,7 @@ public class ProductServiceImpl implements ProductService{
         for (ProductDto productDto:productDtoList) {
             AtomicInteger counter = new AtomicInteger();
             for (OrderDto orderDto:productDto.getOrderDtoList()) {
-                if(orderDto.getId() == orderId){ //ищем совпадения запрашиваемого заказа и связей
+                if(orderDto.getId().equals(orderId)){ //ищем совпадения запрашиваемого заказа и связей
                     counter.getAndIncrement();
                 }
             }

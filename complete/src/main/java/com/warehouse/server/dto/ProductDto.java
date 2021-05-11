@@ -6,7 +6,7 @@ import java.util.List;
 
 public class ProductDto {
 
-    private long id;
+    private Long id;
     private String productNumber;
     private String productName;
     private double price;
@@ -14,11 +14,11 @@ public class ProductDto {
     private boolean isDeleted;
     private List<OrderDto> orderDtoList;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

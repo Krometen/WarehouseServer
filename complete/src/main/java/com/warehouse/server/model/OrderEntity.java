@@ -13,7 +13,7 @@ public class OrderEntity {
     @SequenceGenerator(name="orders_seq", sequenceName="seq_orders", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "orders_seq")
     @Column(nullable = false)
-    private long id;
+    private Long id;
 
     @Column(nullable = false)
     private String orderNumber;
@@ -34,7 +34,7 @@ public class OrderEntity {
             inverseJoinColumns = @JoinColumn(name = "product_id"))
     private List<ProductEntity> productEntityList;
 
-    public OrderEntity(long id, String orderNumber, LocalDate date, String address, boolean isDeleted, List<ProductEntity> productEntityList){
+    public OrderEntity(Long id, String orderNumber, LocalDate date, String address, boolean isDeleted, List<ProductEntity> productEntityList){
         this.id = id;
         this.orderNumber = orderNumber;
         this.date = date;
@@ -46,11 +46,11 @@ public class OrderEntity {
     public OrderEntity(){
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
