@@ -27,16 +27,13 @@ public class ProductServiceImpl implements ProductService{
 
     private final static Logger logger = Logger.getLogger(ProductController.class.getName());
 
-    private final Environment env;
-
     private final ProductRepository products;
 
     private final Mapper<ProductDto, ProductEntity> mapperProductService;
 
     @Autowired
-    public ProductServiceImpl(Environment env, ProductRepository products,
+    public ProductServiceImpl(ProductRepository products,
                               @Qualifier("mapperProductServiceImpl") Mapper<ProductDto, ProductEntity> mapperProductService) {
-        this.env = env;
         this.products = products;
         this.mapperProductService = mapperProductService;
     }
@@ -53,38 +50,11 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public void deleteProduct(Long id) {
-        Connection conn = null;
-        Statement statement = null;
-        try{
-            String url = "jdbc:postgresql://localhost/warehouse";
-            Properties props = new Properties();
-            props.setProperty("user","postgres");
-            props.setProperty("password", env.getProperty("spring.datasource.password"));
-            props.setProperty("ssl","false");
-            conn = DriverManager.getConnection(url, props);
-            statement = conn.createStatement();
-            String result = String.format("UPDATE product_entity SET is_deleted = true WHERE id = %s ;", id);
-            statement.executeUpdate(result);
-        } catch(Exception se){
-            //Handle errors for JDBC
-            se.printStackTrace();
-        }//Handle errors for Class.forName
-        finally{
-            //finally block used to close resources
-            try{
-                if(statement!=null) {
-                    conn.close();
-                }
-            }catch(SQLException ignored){
-            }// do nothing
-            try{
-                if(conn!=null)
-                    conn.close();
-            }catch(SQLException se){
-                se.printStackTrace();
-                logger.warning("SQLException: "+se);
-            }//end finally try
-        }//end try
+        try {
+            products.deleteById(id);
+        }catch(NullPointerException npe){
+            logger.warning("No repository: " + npe);
+        }
     }
 
     @Override

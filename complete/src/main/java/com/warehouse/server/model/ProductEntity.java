@@ -29,7 +29,7 @@ public class ProductEntity {
     @Column(nullable = false)
     private boolean isDeleted;
 
-    @ManyToMany(mappedBy = "productEntityList")
+    @ManyToMany(mappedBy = "productEntityList", cascade = CascadeType.REMOVE)
     private List<OrderEntity> orderEntityList;
 
     public ProductEntity(Long id, String productNumber, String productName, double price, double weight, boolean isDeleted) {

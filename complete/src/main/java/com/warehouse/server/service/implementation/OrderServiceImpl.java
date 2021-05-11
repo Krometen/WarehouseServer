@@ -28,15 +28,12 @@ public class OrderServiceImpl implements OrderService {
 
     private final OrderRepository orders;
 
-    private final Environment env;
-
     private final Mapper<OrderDto, OrderEntity> mapperOrderService;
 
     @Autowired
-    public OrderServiceImpl(OrderRepository orders, Environment env,
+    public OrderServiceImpl(OrderRepository orders,
                             @Qualifier("mapperOrderServiceImpl") Mapper<OrderDto, OrderEntity> mapperOrderService) {
         this.orders = orders;
-        this.env = env;
         this.mapperOrderService = mapperOrderService;
     }
 
@@ -52,38 +49,11 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void deleteOrder(Long id) {
-        Connection conn = null;
-        Statement statement = null;
-        try{
-            String url = "jdbc:postgresql://localhost/warehouse";
-            Properties props = new Properties();
-            props.setProperty("user","postgres");
-            props.setProperty("password", env.getProperty("spring.datasource.password"));
-            props.setProperty("ssl","false");
-            conn = DriverManager.getConnection(url, props);
-            statement = conn.createStatement();
-            String result = String.format("UPDATE order_entity SET is_deleted = true WHERE id = %s ;", id);
-            statement.executeUpdate(result);
-        } catch(Exception se){
-            //Handle errors for JDBC
-            se.printStackTrace();
-        }//Handle errors for Class.forName
-        finally{
-            //finally block used to close resources
-            try{
-                if(statement!=null) {
-                    conn.close();
-                }
-            }catch(SQLException ignored){
-            }// do nothing
-            try{
-                if(conn!=null)
-                    conn.close();
-            }catch(SQLException se){
-                se.printStackTrace();
-                logger.warning("SQLException: "+se);
-            }//end finally try
-        }//end try
+        try {
+            orders.deleteById(id);
+        }catch(NullPointerException npe){
+            logger.warning("No repository: " + npe);
+        }
     }
 
     @Override

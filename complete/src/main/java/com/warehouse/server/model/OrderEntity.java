@@ -27,7 +27,7 @@ public class OrderEntity {
     @Column(nullable = false)
     private boolean isDeleted;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.REMOVE)
     @JoinTable(
             name = "order_to_product_entity",
             joinColumns = @JoinColumn(name = "order_id"),

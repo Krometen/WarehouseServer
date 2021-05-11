@@ -34,7 +34,6 @@ public class OrderController {
         return new ResponseEntity<>(order, HttpStatus.OK);
     }
 
-    //http://localhost:8081/deleteOrder?number=1
     @DeleteMapping("/deleteOrder")
     public ResponseEntity<Void> deleteOrder(@RequestParam Long id) {
         logger.info("Delete Order by id"+id);
