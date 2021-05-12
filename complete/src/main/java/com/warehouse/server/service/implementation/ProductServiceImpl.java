@@ -34,7 +34,7 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public void saveProduct(String productNumber, String productName, double price, double weight){
-        ProductEntity product = new ProductEntity(null, productNumber, productName, price, weight, false);
+        ProductEntity product = new ProductEntity(null, productNumber, productName, price, weight);
         try {
             products.save(product);
         }catch(NullPointerException npe){

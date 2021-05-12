@@ -3,6 +3,5 @@ CREATE TABLE product_entity (
         product_number VARCHAR(255) not NULL,
         product_name VARCHAR(225) not NULL,
         price NUMERIC not NULL,
-        weight NUMERIC not NULL,
-        is_deleted BOOL not NULL
+        weight NUMERIC not NULL
 );

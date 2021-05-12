@@ -33,7 +33,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void saveOrder(String orderNumber, LocalDate date, String address){
-        OrderEntity orderEntity = new OrderEntity(null, orderNumber, date, address, false, null);
+        OrderEntity orderEntity = new OrderEntity(null, orderNumber, date, address, null);
         try {
             orders.save(orderEntity);
         }catch(NullPointerException npe){

@@ -30,7 +30,6 @@ public class MapperProductServiceImpl implements Mapper<ProductDto, ProductEntit
         productDto.setProductName(productEntity.getProductName());
         productDto.setPrice(productEntity.getPrice());
         productDto.setWeight(productEntity.getWeight());
-        productDto.setDeleted(productEntity.isDeleted());
         //маппинг OrderEntityList в OrderDtoList
         List<OrderDto> orderDtoList = new ArrayList<>();
         for (OrderEntity orderEntity:productEntity.getOrderEntityList()) {
@@ -48,7 +47,6 @@ public class MapperProductServiceImpl implements Mapper<ProductDto, ProductEntit
         productEntity.setProductName(productDto.getProductName());
         productEntity.setPrice(productDto.getPrice());
         productEntity.setWeight(productDto.getWeight());
-        productEntity.setDeleted(productDto.isDeleted());
         //маппинг OrderDtoList в OrderEntityList
         List<OrderEntity> orderEntityList = new ArrayList<>();
         for (OrderDto orderDto:productDto.getOrderDtoList()) {

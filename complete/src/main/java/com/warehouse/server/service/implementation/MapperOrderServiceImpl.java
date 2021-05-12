@@ -25,7 +25,6 @@ public class MapperOrderServiceImpl implements Mapper<OrderDto, OrderEntity> {
         orderEntity.setOrderNumber(orderDto.getOrderNumber());
         orderEntity.setDate(orderDto.getDate());
         orderEntity.setAddress(orderDto.getAddress());
-        orderEntity.setDeleted(orderDto.isDeleted());
         return orderEntity;
     }
 

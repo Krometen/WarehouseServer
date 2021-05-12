@@ -24,9 +24,6 @@ public class OrderEntity {
     @Column(nullable = false)
     private String address;
 
-    @Column(nullable = false)
-    private boolean isDeleted;
-
     @ManyToMany(cascade = CascadeType.REMOVE)
     @JoinTable(
             name = "order_to_product_entity",
@@ -34,12 +31,11 @@ public class OrderEntity {
             inverseJoinColumns = @JoinColumn(name = "product_id"))
     private List<ProductEntity> productEntityList;
 
-    public OrderEntity(Long id, String orderNumber, LocalDate date, String address, boolean isDeleted, List<ProductEntity> productEntityList){
+    public OrderEntity(Long id, String orderNumber, LocalDate date, String address, List<ProductEntity> productEntityList){
         this.id = id;
         this.orderNumber = orderNumber;
         this.date = date;
         this.address = address;
-        this.isDeleted = isDeleted;
         this.productEntityList = productEntityList;
     }
 
@@ -76,14 +72,6 @@ public class OrderEntity {
 
     public void setAddress(String address) {
         this.address = address;
-    }
-
-    public boolean isDeleted() {
-        return isDeleted;
-    }
-
-    public void setDeleted(boolean deleted) {
-        isDeleted = deleted;
     }
 
     public List<ProductEntity> getProductEntityList() {

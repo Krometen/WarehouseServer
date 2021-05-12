@@ -26,19 +26,15 @@ public class ProductEntity {
     @Column(nullable = false)
     private double weight;
 
-    @Column(nullable = false)
-    private boolean isDeleted;
-
     @ManyToMany(mappedBy = "productEntityList", cascade = CascadeType.REMOVE)
     private List<OrderEntity> orderEntityList;
 
-    public ProductEntity(Long id, String productNumber, String productName, double price, double weight, boolean isDeleted) {
+    public ProductEntity(Long id, String productNumber, String productName, double price, double weight) {
         this.id = id;
         this.productNumber = productNumber;
         this.productName = productName;
         this.price = price;
         this.weight = weight;
-        this.isDeleted = isDeleted;
     }
 
     public ProductEntity(){
@@ -82,14 +78,6 @@ public class ProductEntity {
 
     public void setWeight(double weight) {
         this.weight = weight;
-    }
-
-    public boolean isDeleted() {
-        return isDeleted;
-    }
-
-    public void setDeleted(boolean deleted) {
-        isDeleted = deleted;
     }
 
     public List<OrderEntity> getOrderEntityList() {

@@ -2,6 +2,5 @@ CREATE TABLE order_entity (
         id BIGINT not NULL PRIMARY KEY,
         order_number VARCHAR(255) not NULL,
         date DATE not NULL,
-        address VARCHAR(225) not NULL,
-        is_deleted BOOL not NULL
+        address VARCHAR(225) not NULL
 );
