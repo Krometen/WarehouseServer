@@ -1,5 +1,6 @@
 package com.warehouse.server.service.implementation;
 
+import com.warehouse.server.dto.OrderRequestDto;
 import com.warehouse.server.dto.OrderDto;
 import com.warehouse.server.model.OrderEntity;
 import com.warehouse.server.model.ProductEntity;
@@ -10,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -32,8 +32,15 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void saveOrder(String orderNumber, LocalDate date, String address){
-        OrderEntity orderEntity = new OrderEntity(null, orderNumber, date, address, null);
+    public void saveOrder(OrderRequestDto orderRequestDto){
+        List<ProductEntity> productEntityList = new ArrayList<>(); //лист сущностей продуктов из листа айди продуктов для связей
+        for (Long id:
+        orderRequestDto.getProductIdList()) {
+            ProductEntity productEntity = new ProductEntity();
+            productEntity.setId(id);
+            productEntityList.add(productEntity);
+        }
+        OrderEntity orderEntity = new OrderEntity(null, orderRequestDto.getOrderNumber(), orderRequestDto.getDate(), orderRequestDto.getAddress(), productEntityList);
         try {
             orders.save(orderEntity);
         }catch(NullPointerException npe){

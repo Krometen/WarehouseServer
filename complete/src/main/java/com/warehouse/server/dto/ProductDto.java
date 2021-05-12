@@ -9,7 +9,6 @@ public class ProductDto {
     private String productName;
     private double price;
     private double weight;
-    private boolean isDeleted;
     private List<OrderDto> orderDtoList;
 
     public Long getId() {
@@ -50,14 +49,6 @@ public class ProductDto {
 
     public void setWeight(double weight) {
         this.weight = weight;
-    }
-
-    public boolean isDeleted() {
-        return isDeleted;
-    }
-
-    public void setDeleted(boolean deleted) {
-        isDeleted = deleted;
     }
 
     public List<OrderDto> getOrderDtoList() {

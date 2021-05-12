@@ -29,12 +29,13 @@ public class ProductEntity {
     @ManyToMany(mappedBy = "productEntityList", cascade = CascadeType.REMOVE)
     private List<OrderEntity> orderEntityList;
 
-    public ProductEntity(Long id, String productNumber, String productName, double price, double weight) {
+    public ProductEntity(Long id, String productNumber, String productName, double price, double weight, List<OrderEntity> orderEntityList) {
         this.id = id;
         this.productNumber = productNumber;
         this.productName = productName;
         this.price = price;
         this.weight = weight;
+        this.orderEntityList = orderEntityList;
     }
 
     public ProductEntity(){

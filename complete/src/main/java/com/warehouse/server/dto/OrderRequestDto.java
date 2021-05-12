@@ -1,20 +1,21 @@
 package com.warehouse.server.dto;
 
 import java.time.LocalDate;
+import java.util.List;
 
-public class OrderDto {
+public class OrderRequestDto {
 
-    private Long id;
     private String orderNumber;
     private LocalDate date;
     private String address;
+    private List<Long> productIdList;
 
-    public Long getId() {
-        return id;
+    public List<Long> getProductIdList() {
+        return productIdList;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setProductIdList(List<Long> productList) {
+        this.productIdList = productList;
     }
 
     public String getOrderNumber() {

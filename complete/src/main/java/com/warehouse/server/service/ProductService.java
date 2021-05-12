@@ -1,11 +1,12 @@
 package com.warehouse.server.service;
 
+import com.warehouse.server.dto.OrderDto;
 import com.warehouse.server.dto.ProductDto;
 import java.util.List;
 
 public interface ProductService {
 
-    void saveProduct(String productNumber, String productName, double price, double weight);
+    void saveProduct(ProductDto productDto);
 
     void deleteProduct(Long id);
 

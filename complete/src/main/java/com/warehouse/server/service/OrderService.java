@@ -1,14 +1,13 @@
 package com.warehouse.server.service;
 
+import com.warehouse.server.dto.OrderRequestDto;
 import com.warehouse.server.dto.OrderDto;
-import com.warehouse.server.model.ProductEntity;
 
-import java.time.LocalDate;
 import java.util.List;
 
 public interface OrderService {
 
-    void saveOrder(String orderNumber, LocalDate date, String address);
+    void saveOrder(OrderRequestDto orderRequestDto);
 
     List<OrderDto> getAllOrders();
 

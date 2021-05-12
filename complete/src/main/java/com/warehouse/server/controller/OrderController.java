@@ -1,7 +1,7 @@
 package com.warehouse.server.controller;
 
+import com.warehouse.server.dto.OrderRequestDto;
 import com.warehouse.server.dto.OrderDto;
-import com.warehouse.server.model.OrderEntity;
 import com.warehouse.server.service.OrderService;
 import com.warehouse.server.service.implementation.OrderServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,11 +27,11 @@ public class OrderController {
     }
 
     @PostMapping("/post-new-order")
-    public ResponseEntity<OrderDto> newOrder(@RequestBody OrderDto order) {
-        logger.info("Creating a Order. Number: "+order.getOrderNumber()+"; Date: "+order.getDate()+"; " +
-                "Address: "+order.getAddress());
-        orderService.saveOrder(order.getOrderNumber(), order.getDate(), order.getAddress());
-        return new ResponseEntity<>(order, HttpStatus.OK);
+    public ResponseEntity<OrderRequestDto> newOrder(@RequestBody OrderRequestDto orderRequestDto) {
+        logger.info("Creating a Order. Number: "+ orderRequestDto.getOrderNumber()+"; Date: "+ orderRequestDto.getDate()+"; " +
+                "Address: "+ orderRequestDto.getAddress());
+        orderService.saveOrder(orderRequestDto);
+        return new ResponseEntity<>(orderRequestDto, HttpStatus.OK);
     }
 
     @DeleteMapping("/delete-order")

@@ -33,8 +33,11 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public void saveProduct(String productNumber, String productName, double price, double weight){
-        ProductEntity product = new ProductEntity(null, productNumber, productName, price, weight);
+    public void saveProduct(ProductDto productEntity){
+        //ProductEntity productEntity = mapperProductService.mapToEntity(productDto);
+        ProductEntity product = new ProductEntity(null, productEntity.getProductNumber(),
+                productEntity.getProductName(), productEntity.getPrice(), productEntity.getWeight(),
+                null);
         try {
             products.save(product);
         }catch(NullPointerException npe){

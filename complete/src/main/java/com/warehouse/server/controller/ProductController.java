@@ -26,10 +26,10 @@ public class ProductController {
     }
 
     @PostMapping("/post-new-product")
-    public ResponseEntity<ProductDto> newProduct(@RequestBody ProductDto product){
-        logger.info("Created Product. Name: "+product.getProductName()+"; Number: "+product.getProductNumber());
-        productService.saveProduct(product.getProductNumber(), product.getProductName(), product.getPrice(), product.getWeight());
-        return new ResponseEntity<>(product, HttpStatus.OK);
+    public ResponseEntity<ProductDto> newProduct(@RequestBody ProductDto productDto){
+        logger.info("Created Product. Name: "+productDto.getProductName()+"; Number: "+productDto.getProductNumber());
+        productService.saveProduct(productDto);
+        return new ResponseEntity<>(productDto, HttpStatus.OK);
     }
 
     @DeleteMapping("/delete-product")
