@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface OrderService {
 
-    void saveOrder(String orderNumber, LocalDate date, String address, List<ProductEntity> productEntityList);
+    void saveOrder(String orderNumber, LocalDate date, String address);
 
     List<OrderDto> getAllOrders();
 

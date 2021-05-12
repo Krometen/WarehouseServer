@@ -99,4 +99,5 @@ public class ProductEntity {
     public void setOrderEntityList(List<OrderEntity> orderEntityList) {
         this.orderEntityList = orderEntityList;
     }
+
 }

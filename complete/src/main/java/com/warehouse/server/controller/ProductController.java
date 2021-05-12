@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 
-//Создает товар по имени, цене, весу и номеру его заказа
+//Создает товар по имени, номеру, цене, весу и номеру его заказа
 @RestController
 public class ProductController {
 
@@ -25,15 +25,14 @@ public class ProductController {
         this.productService = productService;
     }
 
-    @PostMapping("/postNewProduct")
-    public ResponseEntity<ProductEntity> newProduct(@RequestBody ProductEntity product){
+    @PostMapping("/post-new-product")
+    public ResponseEntity<ProductDto> newProduct(@RequestBody ProductDto product){
         logger.info("Created Product. Name: "+product.getProductName()+"; Number: "+product.getProductNumber());
         productService.saveProduct(product.getProductNumber(), product.getProductName(), product.getPrice(), product.getWeight());
         return new ResponseEntity<>(product, HttpStatus.OK);
     }
 
-    //http://localhost:8081/deleteProduct?number=11
-    @DeleteMapping("/deleteProduct")
+    @DeleteMapping("/delete-product")
     public ResponseEntity<Void> deleteProduct(@RequestParam Long id){
         logger.info("Delete Product "+id);
         productService.deleteProduct(id);
@@ -41,7 +40,7 @@ public class ProductController {
     }
 
     //http://localhost:8081/getProducts?orderId=5
-    @GetMapping(value="/getProducts")
+    @GetMapping(value="/get-products")
     public @ResponseBody
     List<ProductDto> getProductsJson(@RequestParam(required = false) Long orderId) {
         logger.info("Get Products of the Order "+orderId);

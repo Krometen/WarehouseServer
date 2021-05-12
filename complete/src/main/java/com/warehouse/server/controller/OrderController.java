@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 
-//Создает заказ по дате и адресу
+//Создает заказ по номеру, дате и адресу
 @RestController
 public class OrderController {
 
@@ -26,22 +26,22 @@ public class OrderController {
         this.orderService = orderService;
     }
 
-    @PostMapping("/postNewOrder")
-    public ResponseEntity<OrderEntity> newOrder(@RequestBody OrderEntity order) {
+    @PostMapping("/post-new-order")
+    public ResponseEntity<OrderDto> newOrder(@RequestBody OrderDto order) {
         logger.info("Creating a Order. Number: "+order.getOrderNumber()+"; Date: "+order.getDate()+"; " +
                 "Address: "+order.getAddress());
-        orderService.saveOrder(order.getOrderNumber(), order.getDate(), order.getAddress(), order.getProductEntityList());
+        orderService.saveOrder(order.getOrderNumber(), order.getDate(), order.getAddress());
         return new ResponseEntity<>(order, HttpStatus.OK);
     }
 
-    @DeleteMapping("/deleteOrder")
+    @DeleteMapping("/delete-order")
     public ResponseEntity<Void> deleteOrder(@RequestParam Long id) {
         logger.info("Delete Order by id"+id);
         orderService.deleteOrder(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping(value="/getOrders")
+    @GetMapping(value="/get-orders")
     public @ResponseBody
     List<OrderDto> getOrdersJson() {
         logger.info("Get Orders");
